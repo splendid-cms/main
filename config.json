@@ -1,0 +1,24 @@
+{
+    "Website_name": "Splendid",
+    "Theme": "preshow",
+    "Icon": "favicon.ico",
+    "Port": 3000,
+    "Plugins": [],
+    "Content": {
+        "Header": {
+            "Name": "/home/",
+            "Github": "https://github.com/splendid-cms"
+        },
+        "Sidebar": {
+            "Page Name": "/link-1/",
+            "Category": {
+                "Page Name": "/link-2/",
+                "Subcategory": {
+                    "Page Name": "/link-3/"
+                }
+            }
+        },
+        "Footer": "Footer text"
+    },
+    "Debug": false
+}

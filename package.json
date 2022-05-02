@@ -1,0 +1,20 @@
+{
+  "main": "views/js/app.js",
+  "scripts": {
+    "start": "nodemon views/js/app.js"
+  },
+  "dependencies": {
+    "@fastify/static": "^5.0.0",
+    "chalk": "^4.1.2",
+    "ejs": "^3.1.6",
+    "fastify": "^3.29.0",
+    "figlet": "^1.5.2",
+    "image-size": "^1.0.1",
+    "point-of-view": "^5.2.0",
+    "showdown": "^2.0.3",
+    "showdown-highlight": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

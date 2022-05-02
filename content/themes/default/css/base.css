@@ -1,0 +1,284 @@
+body {
+    display: flex;
+}
+:root {
+    /* Colors */
+    --primary: #5865f2;
+    --dim-primary: #747ff8;
+    --white: #fff;
+    --chinese-black-1: #151515;
+    --raisin-black-2: #242428;
+    --raisin-black-1: #27272b;
+    --dark-charcoal-3: #2c2c31;
+    --dark-charcoal-2: #313135;
+    --dark-charcoal-1: #333338;
+    --onyx-3: #36363a;
+    --onyx-2: #36363b;
+    --onyx-1: #3d3d41;
+    --quartz-3: #484850;
+    --quartz-2: #4b4b53;
+    --quartz-1: #4f4f58;
+    --davys-gray-1: #52555c;
+    --rum-1: #646472;
+    --light-silver-1: #d9d9df;
+
+    /* --primary: #5865f2;
+    --dim-primary: #747ff8;
+    --white: #303030;
+    --chinese-black-1: #eaeaea;
+    --raisin-black-2: #dbdbd7;
+    --raisin-black-1: #d8d8d4;
+    --dark-charcoal-3: #d3d3ce;
+    --dark-charcoal-2: #cececa;
+    --dark-charcoal-1: #ccccc7;
+    --onyx-3: #c9c9c5;
+    --onyx-2: #c9c9c4;
+    --onyx-1: #c2c2be;
+    --quartz-3: #b7b7af;
+    --quartz-2: #b4b4ac;
+    --quartz-1: #b0b0a7;
+    --davys-gray-1: #adaaa3;
+    --rum-1: #9b9b8d;
+    --light-silver-1: #262620;
+    Soon™ */
+
+    font-family: 'Varela Round', sans-serif;
+    scrollbar-color: var(--davys-gray-1) var(--raisin-black-2);
+    scrollbar-width: thin;
+    color-scheme: dark;
+}
+::selection {
+    background-color: var(--primary);
+    color: var(--white);
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--dark-charcoal-3);
+}
+::-webkit-scrollbar-track {
+    background-color: var(--raisin-black-1);
+}
+* {
+    margin: 0px;
+    padding: 0px;
+    text-decoration-color: var(--white);
+    -webkit-tap-highlight-color: transparent;
+}
+.content a > img, .content pre, .page, tip, user, table, .hamburger .items, btn {
+    box-shadow: 0 3px 5px var(--raisin-black-2);
+}
+a, button {
+    outline: none;
+}
+
+/* --- HEADER --- */
+.header {
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    background-color: var(--raisin-black-1);
+    justify-content: space-between;
+    height: 90px;
+    padding: 0 5%;
+}
+.hamburger {
+    position: relative;
+}
+.fa-bars {
+    min-width: 25px;
+    font-size: 25px;
+    color: var(--white);
+    margin: 0 15px;
+    display: none !important;
+}
+.hamburger .items {
+    position: absolute;
+    width: 270px;
+    padding: 20px;
+    border-radius: 6px;
+    left: 0;
+    z-index: 1;
+    background-color: var(--dark-charcoal-3);
+    border: 1px solid var(--onyx-2);
+    max-height: 400px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.hamburger .items::-webkit-scrollbar {
+    width: 0;
+}
+.header-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 45%;
+}
+.header-items li {
+    list-style: none;
+    height: 100%;
+}
+.header-items a {
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 6px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 0 25px;
+    margin-left: 10px;
+    position: relative;
+    transition: all ease-in-out .12s;
+}
+.header-items a:hover, .header-items i:hover {
+    background-color: var(--onyx-3);
+    transition: all ease-in-out .12s;
+}
+.header-items i {
+    display: none;
+}
+.header li:first-child {
+    margin: 0;
+}
+
+/* --- FOOTER --- */
+.footer {
+    display: flex;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--raisin-black-2);
+}
+.footer p {
+    color: var(--white);
+    font-size: 13px;
+}
+user i, copy i:before {
+    padding: 10px;
+    font-size: 20px;
+    color: var(--white);
+    transition: all ease-in-out .12s;
+    border-radius: 6px;
+}
+
+/* --- SIDEBAR --- */
+.sidebar {
+    position: sticky;
+    top: 0px;
+    width: 250px;
+    height: 101vh;
+    background-color: var(--dark-charcoal-3);
+    overflow-x: hidden;
+    transition: all ease-in-out .5s;
+    flex-shrink: 0;
+    scrollbar-color: var(--onyx-1) var(--dark-charcoal-3);
+    scrollbar-width: thin;
+    overflow-y: scroll;
+    user-select: none;
+}
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background-color: var(--onyx-1);
+}
+.sidebar::-webkit-scrollbar-track {
+    background-color: var(--dark-charcoal-3);
+}
+.items {
+    list-style-type: none;
+    line-height: 16px;
+    margin-top: 15px;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility .5s, opacity .5s ease-in-out;
+    margin-bottom: 50px;
+}
+.items i {
+    margin-right: 8px;
+}
+.items a, .items li p {
+    cursor: pointer;
+    font-style: normal;
+    color: var(--white);
+    background-color: var(--dark-charcoal-3);
+    text-decoration: none;
+    transition: all ease-in-out .12s;
+    border-radius: 6px;
+    font-size: 15px;
+    padding: 10px;
+    display: block;
+    margin: 0 0 5px 0;
+    white-space: nowrap;
+}
+.items a:hover,
+.items li p:hover,
+.items li p.expand,
+.items a.active {
+    background-color: var(--onyx-3);
+    transition: all ease-in-out .12s;
+}
+.items li {
+    max-height: 41px;
+    overflow: hidden;
+    margin: 0 15px;
+}
+.items li.expand, .items > ul > li:first-child {
+    max-height: fit-content;
+}
+.items li p.expand:before {
+    font: var(--fa-font-solid);
+    content: "\f0d8";
+}
+.items li p:before {
+    font: var(--fa-font-solid);
+	content: "\f0d7";
+    display: inline-block;
+    vertical-align: middle;
+	width: 18px;
+}
+.items li > ul > li {
+    margin: 0;
+}
+.items ul ul, .items li:not(:first-child) a {
+    margin-left: 10px;
+}
+.container img {
+    width: auto;
+	height: 50px;
+	display: inline-block;
+    margin: 0 10px 0 0;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility .5s, opacity .5s ease-in-out;
+    color: var(--white);
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* --- CONTENT --- */
+.content {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+    padding: 10px 30px;
+    transition: all ease-in-out .5s;
+    width: 120vh;
+    min-height: calc(100vh - 240px);
+}
+.wrapper {
+    width: 100%;
+    background-color: var(--raisin-black-1);
+    transition: all ease-in-out .5s;
+}
