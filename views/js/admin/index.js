@@ -17,6 +17,11 @@ module.exports = function (fastify, opts, next) {
             url: req.url.slice(10)
         });
     });
+    fastify.get('/plugins', (req, res) => {
+        res.view('./content/admin/html/main.html', {
+            url: req.url.slice(10)
+        });
+    });
     fastify.get('', (req, res) => {
         res.redirect('/spl-admin/dashboard');
     });

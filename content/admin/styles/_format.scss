@@ -21,3 +21,18 @@ a {
 h6, h5, h4, h3, h2, h1 {
     color: #fff;
 }
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+}
+td, th {
+    border: 1px solid $border;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: darken($border, 5%);
+}
