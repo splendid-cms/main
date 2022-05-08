@@ -1,0 +1,23 @@
+
+.box {
+    display: inline-block;
+    padding: 20px;
+    background-color: $primary-dark;
+}
+
+a {
+    text-decoration: none;
+    &:hover {
+        color: #fff;
+    }
+}
+.content a {
+    color: dodgerblue;
+    &:hover {
+        color: royalblue;
+    }
+}
+
+h6, h5, h4, h3, h2, h1 {
+    color: #fff;
+}

@@ -1,0 +1,142 @@
+// Utilities
+@import "./utility";
+
+// Secondary formatting
+@import "./format";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
+    color: $text;
+}
+body {
+    display: flex;
+    background-color: $primary;
+    -webkit-tap-highlight-color: $green-op-2;
+}
+
+// Header
+header {
+    background-color: $primary;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+    border-bottom: 2px solid $border;
+    height: 80px;
+    width: 100%;
+    font-size: 16px;
+    strong {
+        color: #fff;
+        font-size: 22px;
+    }
+    .logo {
+        width: auto;
+        height: 40px;
+        padding: 0 30px;
+    }
+    div {
+        display: flex;
+        align-items: center;
+    }
+    i {
+        width: 50px;
+        font-size: 30px;
+        cursor: pointer;
+        display: none !important;
+    }
+}
+
+// Wrapper
+.wrapper {
+    padding-top: 80px;
+}
+
+// Content
+.content {
+    padding: 30px 30px 30px 250px;
+}
+
+// Sidebar
+.sidebar {
+    position: fixed;
+    z-index: 5;
+    background-color: $primary;
+    width: 220px;
+    height: 100%;
+    border-right: 2px solid $border;
+    * {
+        opacity: 1;
+        visibility: visible;
+    }
+    ul {
+        list-style-type: none;
+        li {
+            margin: 5px 10px 0;
+            a, i {
+                transition: $trans-1;
+            }
+            a {
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                i {
+                    min-width: 28px;
+                    font-size: 20px;
+                }
+                &:hover i, &:hover {
+                    color: $green-1;
+                    transition: $trans-1;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 700px) {
+    body {
+        height: 100%;
+        overflow-y: hidden;
+        &.active {
+            height: auto;
+            overflow-y: auto;
+        }
+    }
+    header {
+        justify-content: space-between;
+        p {
+            display: none;
+        }
+        i {
+            display: inline-block !important;
+        }
+    }
+    .shadow {
+        position: fixed;
+    	width: 100vw;
+    	height: 100vh;
+    	opacity: .5;
+    	background-color: #000;
+    	transition: $trans-2;
+    	z-index: 2;
+        &.active {
+            visibility: hidden;
+    	    opacity: 0;
+        }
+    }
+    .content {
+        padding: 30px;
+    }
+    .sidebar {
+        transition: $trans-2;
+        &.active {
+            width: 0;
+        }
+        *.active {
+            opacity: 0;
+            visibility: collapse;
+            transition: $trans-2;
+        }
+    }
+}

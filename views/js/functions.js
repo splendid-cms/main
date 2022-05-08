@@ -3,19 +3,19 @@ const config = require(path.resolve("./config.json"));
 const chalk = require('chalk');
 
 // Analyze any available issue through a one single function
-analyze = function() {
+analyze = function (host) {
     const icon = path.join(path.resolve('./content/media'), config.Icon);
     const size = require('image-size')(icon);
     if ((size.width || size.height) > 48) console.log(defineMessage('WARN', 'Can not load an icon, too big size!'));
-    if (!require('fs').existsSync('./content/themes/' + config.Theme + '/main.ejs')) {
+    if (!require('fs').existsSync('./content/themes/' + config.Theme + '/main.html')) {
         console.log(defineMessage('ERR', 'Can not find given theme, consider checking config.json!'));
         process.exit(1);
     }
-    console.log(defineMessage('OK', 'Listening to port ' + config.Port));
+    console.log(defineMessage('OK', `Listening over at ${host}.`));
 }
 
 // Custom message format: OK, WARN, ERR
-defineMessage = function(type, string) {
+defineMessage = function (type, string) {
     if (!string) return;
     string = chalk.gray(string);
     if (type == 'OK') return chalk.white.bgGreen.bold(' OK ') + ' ' + string;
@@ -25,32 +25,30 @@ defineMessage = function(type, string) {
 }
 
 // What to return on 404
-notFound = function() {
+notFound = function () {
     return '404';
 }
 
 // Startup function
-onStartup = function(name) {
+onStartup = function (name) {
     console.clear();
     console.log(chalk.green.bold(require('figlet').textSync(name)));
 }
 
 // Render elements
-render = function(data, summary) {
-    const showdown  = require('showdown');
+render = function (data, summary) {
+    const showdown = require('showdown');
     const converter = new showdown.Converter(showdownConverter());
     return {
         content: converter.makeHtml(data),
-        name: config.Website_name,
-        theme: config.Theme,
         header: headerJSON(),
         sidebar: sidebarJSON(),
-        footer: config.Content.Footer
+        footer: converter.makeHtml(config.Content.Footer)
     }
 }
 
 // Showdown converter options
-showdownConverter = function() {
+showdownConverter = function () {
     return {
         strikethrough: 'true',
         tables: 'true',
@@ -62,7 +60,7 @@ showdownConverter = function() {
 }
 
 // Convert header JSON to header HTML
-headerJSON = function() {
+headerJSON = function () {
     let header = JSON.stringify(config.Content.Header);
     header = header
         .replace(/"(.*?)":"(.*?)"/gm, '<li><a href="$2">$1</a></li>')
@@ -72,16 +70,15 @@ headerJSON = function() {
 }
 
 // Convert sidebar JSON to sidebar HTML list
-sidebarJSON = function() {
+sidebarJSON = function () {
     let sidebar = JSON.stringify(config.Content.Sidebar);
     let brlength = sidebar.split("}").length - 3;
     sidebar = sidebar.slice(1, -1)
         .replace(/"([^"]*)":"(.*?)"/g, `<a href='$2'>$1</a>`)
         .replace(/"([^"]*)":{(.*)}/g, '</li><li><p>$1</p>$2</li>')
         .replace(/,/g, '');
-    for(let i=0;i<brlength;i++) sidebar = sidebar.replace(/"([^"]*)":{(.*)}/g, '<ul><li><p>$1</p>$2</ul></li>')
-    sidebar = '<ul><li>' + sidebar + '</ul>'
-    return sidebar;
+    for (let i = 0; i < brlength; i++) sidebar = sidebar.replace(/"([^"]*)":{(.*)}/g, '<ul><li><p>$1</p>$2</ul></li>')
+    return '<ul><li>' + sidebar + '</ul>';
 }
 
 // Custom plugins
@@ -90,7 +87,7 @@ config.Plugins.forEach(function(element, index, array) {
     try {
         plugins.push(require(path.resolve('./plugins/' + element + '/main.js')));
     } catch (err) {
-        console.error(defineMessage('ERR', element + 'plugin: ' + err));
+        console.error(defineMessage('ERR', element + ' plugin: ' + err));
         process.exit(1);
     }
 });
