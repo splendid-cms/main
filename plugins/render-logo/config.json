@@ -1,0 +1,7 @@
+{
+    "_developer": "Splendid",
+    "_description": "Does include logo variable for EJS themes.",
+    "_version": "0.9",
+    "_comment": "Logo path starts with the default static files path i.e. /content/media/",
+    "LogoPath": "logo.png"
+}

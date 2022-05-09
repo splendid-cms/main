@@ -23,16 +23,34 @@ h6, h5, h4, h3, h2, h1 {
 }
 
 table {
-    font-family: arial, sans-serif;
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
 }
 td, th {
-    border: 1px solid $border;
+    border-bottom: 1px solid $border;
     text-align: left;
+    vertical-align: baseline;
     padding: 8px;
+    &:last-child {
+        width: 66%;
+    }
+    span {
+        font-size: 13px;
+        color: darken($text, 20%);
+    }
 }
 tr:nth-child(even) {
-    background-color: darken($border, 5%);
+    background-color: darken($primary, 1%);
+}
+
+@media screen and (max-width: 315px) {
+    table {
+        td, th {
+            font-size: 12px;
+        }
+        span {
+            font-size: 11px;
+        }
+    }
 }

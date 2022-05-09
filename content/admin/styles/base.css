@@ -25,20 +25,38 @@ h6, h5, h4, h3, h2, h1 {
 }
 
 table {
-  font-family: arial, sans-serif;
   border-collapse: collapse;
   table-layout: fixed;
   width: 100%;
 }
 
 td, th {
-  border: 1px solid #4d4c4c;
+  border-bottom: 1px solid #4d4c4c;
   text-align: left;
+  vertical-align: baseline;
   padding: 8px;
 }
 
+td:last-child, th:last-child {
+  width: 66%;
+}
+
+td span, th span {
+  font-size: 13px;
+  color: #999999;
+}
+
 tr:nth-child(even) {
-  background-color: #403f3f;
+  background-color: #373839;
+}
+
+@media screen and (max-width: 315px) {
+  table td, table th {
+    font-size: 12px;
+  }
+  table span {
+    font-size: 11px;
+  }
 }
 
 * {
@@ -190,7 +208,7 @@ header i {
     opacity: 0;
   }
   .content {
-    padding: 30px;
+    padding: 10px;
   }
   .sidebar {
     -webkit-transition: all 0.4s ease;

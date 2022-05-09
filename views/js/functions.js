@@ -14,6 +14,11 @@ analyze = function (host) {
     console.log(defineMessage('OK', `Listening over at ${host}.`));
 }
 
+beautify = function (string) {
+    let str = string.charAt(0).toUpperCase() + string.slice(1);
+    return str.replace(/-|_/g, ' ')
+}
+
 // Custom message format: OK, WARN, ERR
 defineMessage = function (type, string) {
     if (!string) return;
@@ -83,7 +88,7 @@ sidebarJSON = function () {
 
 // Custom plugins
 var plugins = [];
-config.Plugins.forEach(function(element, index, array) {
+config.Plugins.forEach(function(element, index) {
     try {
         plugins.push(require(path.resolve('./plugins/' + element + '/main.js')));
     } catch (err) {
