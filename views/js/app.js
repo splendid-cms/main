@@ -6,7 +6,8 @@ const fastify = require('fastify')({
     ignoreTrailingSlash: true
 });
 const fs = require('fs');
-require('./functions');
+require('./functions/additional');
+require('./functions/built-in');
 
 // Middleware.
 fastify.register(require("point-of-view"), {
@@ -21,19 +22,16 @@ fastify.register(require("point-of-view"), {
     prefix: '/content/'
 }).register(require('./admin'), {
     prefix: config["Admin Dashboard Prefix"]
-}).register(require('./api.js'), {
+}).register(require('./api'), {
     prefix: '/api'
 }).register(require('@fastify/cookie'), {
-    secret: "spl",
+    secret: "top-secret",
     parseOptions: {}
 }).register(require('@fastify/session'), {
     cookieName: 'sessionId',
     secret: 'a secret with minimum length of 32 characters',
     cookie: { secure: false },
     maxAge: 120
-}).addHook('preHandler', (request, reply, next) => {
-    request.session.user = {name: 'max'};
-    next();
 });
 
 fastify.get('/favicon.ico', (req, res) => {

@@ -11,6 +11,14 @@
   margin: 0 10px 10px 0;
 }
 
+.abs-center {
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
 a {
   text-decoration: none;
 }
@@ -56,6 +64,10 @@ table td span, table th span {
 
 tr:nth-child(even) {
   background-color: #373839;
+}
+
+input {
+  background-color: #323334;
 }
 
 @media screen and (max-width: 315px) {

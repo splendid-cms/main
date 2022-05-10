@@ -12,6 +12,12 @@
     background-color: $primary-dark;
     margin: 0 10px 10px 0;
 }
+.abs-center {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
 
 // Main formatting
 a {
@@ -52,6 +58,10 @@ table {
 }
 tr:nth-child(even) {
     background-color: darken($primary, 1%);
+}
+
+input {
+    background-color: darken($primary-dark, 1%);
 }
 
 @media screen and (max-width: 315px) {
