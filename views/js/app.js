@@ -20,7 +20,20 @@ fastify.register(require("point-of-view"), {
     root: path.resolve('./content/'),
     prefix: '/content/'
 }).register(require('./admin'), {
-    prefix: '/spl-admin'
+    prefix: config["Admin Dashboard Prefix"]
+}).register(require('./api.js'), {
+    prefix: '/api'
+}).register(require('@fastify/cookie'), {
+    secret: "spl",
+    parseOptions: {}
+}).register(require('@fastify/session'), {
+    cookieName: 'sessionId',
+    secret: 'a secret with minimum length of 32 characters',
+    cookie: { secure: false },
+    maxAge: 120
+}).addHook('preHandler', (request, reply, next) => {
+    request.session.user = {name: 'max'};
+    next();
 });
 
 fastify.get('/favicon.ico', (req, res) => {

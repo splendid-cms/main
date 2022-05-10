@@ -1,10 +1,19 @@
+// Icons
+.bxs-message-alt-error {
+    color: $red;
+    font-size: 18px;
+    vertical-align: middle;
+}
 
+// Custom classes
 .box {
     display: inline-block;
     padding: 20px;
     background-color: $primary-dark;
+    margin: 0 10px 10px 0;
 }
 
+// Main formatting
 a {
     text-decoration: none;
     &:hover {
@@ -26,18 +35,19 @@ table {
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
-}
-td, th {
-    border-bottom: 1px solid $border;
-    text-align: left;
-    vertical-align: baseline;
-    padding: 8px;
-    &:last-child {
-        width: 66%;
-    }
-    span {
-        font-size: 13px;
-        color: darken($text, 20%);
+    margin-top: 20px;
+    td, th {
+        border-bottom: 1px solid $border;
+        text-align: left;
+        vertical-align: baseline;
+        padding: 8px;
+        &:last-child {
+            width: 66%;
+        }
+        span {
+            font-size: 13px;
+            color: darken($text, 20%);
+        }
     }
 }
 tr:nth-child(even) {

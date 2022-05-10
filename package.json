@@ -7,12 +7,12 @@
     "start": "nodemon views/js/app.js"
   },
   "dependencies": {
+    "@fastify/cookie": "^6.0.0",
+    "@fastify/session": "^8.2.0",
     "@fastify/static": "^5.0.0",
     "chalk": "^4.1.2",
     "ejs": "^3.1.6",
     "fastify": "^3.29.0",
-    "fastify-cookie": "^5.7.0",
-    "fastify-session": "^5.2.1",
     "figlet": "^1.5.2",
     "image-size": "^1.0.1",
     "point-of-view": "^5.2.0",

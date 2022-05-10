@@ -1,7 +1,14 @@
+.bxs-message-alt-error {
+  color: #cd5c5c;
+  font-size: 18px;
+  vertical-align: middle;
+}
+
 .box {
   display: inline-block;
   padding: 20px;
   background-color: #353637;
+  margin: 0 10px 10px 0;
 }
 
 a {
@@ -28,20 +35,21 @@ table {
   border-collapse: collapse;
   table-layout: fixed;
   width: 100%;
+  margin-top: 20px;
 }
 
-td, th {
+table td, table th {
   border-bottom: 1px solid #4d4c4c;
   text-align: left;
   vertical-align: baseline;
   padding: 8px;
 }
 
-td:last-child, th:last-child {
+table td:last-child, table th:last-child {
   width: 66%;
 }
 
-td span, th span {
+table td span, table th span {
   font-size: 13px;
   color: #999999;
 }

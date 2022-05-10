@@ -20,5 +20,9 @@
         },
         "Footer": "Footer text"
     },
+    "Admin Dashboard Prefix": "/splendid",
+    "API Key": "YOUR_API_KEY",
+    "User ID": "domin1234",
+    "Password": "domin1234",
     "Debug": false
 }
