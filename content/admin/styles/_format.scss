@@ -35,6 +35,7 @@ a {
 
 h6, h5, h4, h3, h2, h1 {
     color: #fff;
+    padding-bottom: 5px;
 }
 
 table {
@@ -60,8 +61,26 @@ tr:nth-child(even) {
     background-color: darken($primary, 1%);
 }
 
+
+form section {
+    margin: 0 0 20px 0;
+    position: relative; /* for password toggle positioning */
+}
+label {
+    display: block;
+}
 input {
-    background-color: darken($primary-dark, 1%);
+    background-color: darken($primary-dark, 5%);
+    padding: 10px;
+    border: 0;
+    &:focus {
+        outline: 2px solid $green-1
+    }
+    &[type=email]:not(:focus):invalid,
+    &[type=password]:not(:focus):invalid {
+        color: $red;
+        outline-color: $red;
+    }
 }
 
 @media screen and (max-width: 315px) {

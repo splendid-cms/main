@@ -1,2 +1,7 @@
+# Node.JS related
 node_modules
 package-lock.json
+
+# Splendid related
+cache
+plugins/*

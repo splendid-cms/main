@@ -1,20 +1,28 @@
-const fs = require('fs');
-const path = require('path');
-const cfgPath = path.resolve('./config.json');
-const config = require(cfgPath);
+const config = require(require('path').resolve('./config.json'));
 
 module.exports = function (fastify, opts, next) {
-    fastify.get('/plugin/toggle/:plugin', (req, res) => {
-        let plugin = req.params.plugin;
-        if (req.query.key != config["API Key"]) return res.send({statusCode: '401'});
-        if (!plugin || !fs.existsSync(path.resolve(`./plugins/${plugin}/main.js`))) return res.send({statusCode: '404'});
-        let index = config.Plugins.indexOf(plugin);
-        if (index === -1) config.Plugins.push(plugin);
-        else config.Plugins.splice(index, 1);
-        fs.writeFile(cfgPath, JSON.stringify(config, null, 4), (err, res) => {
-            if (err) console.log(err);
+
+    // Removing cache control for each request
+    fastify.addHook("onRequest", async (req, res) => {
+		res.headers({
+			"Cache-Control": "no-store, max-age=0, must-revalidate",
+			Expires: "0",
+			Pragma: "no-cache",
+			"Surrogate-Control": "no-store",
+		});
+	});
+    fastify.get('/auth', (req, res) => {
+        const q = req.query;
+        const userData = config.Users.find(user => user.Email === q.email && hashPassword(user.Email, user.Password) === hashPassword(q.email, q.password));
+        if (!userData) return res.code(403).send({ statusCode: '403' })
+        const token = sha256(userData.Email);
+        saveSession(token, { ID: userData.ID });
+        res.setCookie('session', token, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 7,
+            path: config["Admin Dashboard Prefix"]
         });
-        res.send({statusCode: '200'});
+        res.code(301).redirect(config["Admin Dashboard Prefix"] + '/dashboard');
     });
     next();
 }

@@ -14,6 +14,9 @@ analyze = function (host) {
     console.log(defineMessage('OK', `Listening over at ${host}.`));
 }
 
+// Beautifies given string making
+// 'render-logo' look like
+// 'Render logo'
 beautify = function (string) {
     let str = string.charAt(0).toUpperCase() + string.slice(1);
     return str.replace(/-|_/g, ' ')
@@ -23,10 +26,23 @@ beautify = function (string) {
 defineMessage = function (type, string) {
     if (!string) return;
     string = chalk.gray(string);
-    if (type == 'OK') return chalk.white.bgGreen.bold(' OK ') + ' ' + string;
-    if (type == 'WARN') return chalk.black.bgYellow.bold(' WARN ') + ' ' + string;
-    if (type == 'ERR') return chalk.white.bgRed.bold(' ERR ') + ' ' + string;
+    if (type == 'OK') return chalk.bgGreen(' OK ') + ' ' + string;
+    if (type == 'WARN') return chalk.bgYellow(' WARN ') + ' ' + string;
+    if (type == 'ERR') return chalk.bgRed(' ERR ') + ' ' + string;
     return chalk.white.bgRed.bold(' ERR ') + chalk.gray(' Wrong type provided!');
+}
+
+// Get formatted time like "05/14/2022 17:48:13"
+getFormatTime = function () {
+    let now = new Date();
+    return `${
+        (now.getMonth()+1).toString().padStart(2, '0')}/${
+        now.getDate().toString().padStart(2, '0')}/${
+        now.getFullYear().toString().padStart(4, '0')} ${
+        now.getHours().toString().padStart(2, '0')}:${
+        now.getMinutes().toString().padStart(2, '0')}:${
+        now.getSeconds().toString().padStart(2, '0')
+    }`;
 }
 
 // What to return on 404

@@ -37,6 +37,7 @@ a:hover {
 
 h6, h5, h4, h3, h2, h1 {
   color: #fff;
+  padding-bottom: 5px;
 }
 
 table {
@@ -66,8 +67,29 @@ tr:nth-child(even) {
   background-color: #373839;
 }
 
+form section {
+  margin: 0 0 20px 0;
+  position: relative;
+  /* for password toggle positioning */
+}
+
+label {
+  display: block;
+}
+
 input {
-  background-color: #323334;
+  background-color: #28292a;
+  padding: 10px;
+  border: 0;
+}
+
+input:focus {
+  outline: 2px solid #76a43d;
+}
+
+input[type=email]:not(:focus):invalid, input[type=password]:not(:focus):invalid {
+  color: #cd5c5c;
+  outline-color: #cd5c5c;
 }
 
 @media screen and (max-width: 315px) {
