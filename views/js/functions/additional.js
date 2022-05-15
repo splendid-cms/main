@@ -7,7 +7,7 @@ analyze = function (host) {
     const icon = path.join(path.resolve('./content/media'), config.Icon);
     const size = require('image-size')(icon);
     if ((size.width || size.height) > 48) console.log(defineMessage('WARN', 'Can not load an icon, too big size!'));
-    if (!require('fs').existsSync('./content/themes/' + config.Theme + '/main.html')) {
+    if (!require('fs').existsSync('./themes/' + config.Theme + '/main.html')) {
         console.log(defineMessage('ERR', 'Can not find given theme, consider checking config.json!'));
         process.exit(1);
     }

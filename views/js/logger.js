@@ -93,7 +93,7 @@ module.exports = class Logger {
         } catch {
             var message = chalk.gray(arg);
         }
-        console.log(chalk.bgOrange(` ${getFormatTime()} `) + ': ' + message);
+        console.log(chalk.bgYellow(` ${getFormatTime()} `) + ': ' + message);
     }
 
     // Trace log with bg cyan

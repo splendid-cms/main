@@ -22,6 +22,7 @@ module.exports = function (fastify, opts, next) {
             maxAge: 60 * 60 * 24 * 7,
             path: config["Admin Dashboard Prefix"]
         });
+        fastify.log.warn('New account has logged in! Creating new session.')
         res.code(301).redirect(config["Admin Dashboard Prefix"] + '/dashboard');
     });
     next();

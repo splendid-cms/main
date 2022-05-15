@@ -3,6 +3,7 @@ const logs = './cache/log';
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
+const fastify = require('fastify');
 const config = require(path.resolve("./config.json"));
 
 // Encrypts data using sha256
@@ -27,7 +28,6 @@ getSession = function (token) {
 saveSession = function (token, payload) {
     const filePath = path.join(sessions, token);
     if (!fs.existsSync(sessions)) fs.mkdirSync(sessions, { recursive: true });
-    console.log(defineMessage('WARN', 'New account has logged in! Creating new session.'));
     fs.writeFileSync(filePath, JSON.stringify(payload));
 }
 

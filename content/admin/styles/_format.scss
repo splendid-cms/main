@@ -18,6 +18,9 @@
     top: 50%;
     left: 50%;
 }
+.staircase {
+    padding-left: 10px;
+}
 
 // Main formatting
 a {
@@ -61,18 +64,35 @@ tr:nth-child(even) {
     background-color: darken($primary, 1%);
 }
 
-
-form section {
+button {
+    background-color: darken($primary-dark, 5%);
+    padding: 10px;
+    margin-top: 3px;
+    border: none;
+    cursor: pointer;
+    &:hover {
+        outline: 2px solid $green-1
+    }
+    &:active {
+        outline: 3px solid $green-1
+    }
+}
+section {
     margin: 0 0 20px 0;
-    position: relative; /* for password toggle positioning */
+    position: relative;
 }
 label {
     display: block;
+    color: lighten($text, 10%)
 }
 input {
+    width: 220px;
     background-color: darken($primary-dark, 5%);
     padding: 10px;
     border: 0;
+    &:autofill {
+        box-shadow: 0 0 0 30px darken($primary-dark, 3%) inset !important;
+    }
     &:focus {
         outline: 2px solid $green-1
     }

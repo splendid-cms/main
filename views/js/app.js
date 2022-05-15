@@ -33,7 +33,12 @@ fastify.register(require("point-of-view"), {
 // Static files in the ./content/ folder
 fastify.register(require('@fastify/static'), {
     root: path.resolve('./content/'),
-    prefix: '/content/'
+    prefix: '/content/',
+    decorateReply: false
+}).register(require('@fastify/static'), {
+    root: path.resolve('./themes/'),
+    prefix: '/themes/',
+    decorateReply: false
 });
 
 // Content type parser for the
@@ -94,7 +99,7 @@ fastify.get('*', (req, res) => {
         summary = notFound();
         code = 404;
     }
-    res.code(code).view('./content/themes/' + config.Theme + '/main.html', render(content, summary));
+    res.code(code).view('./themes/' + config.Theme + '/main.html', render(content, summary));
 });
 
 // Listening and analyzing the issues.

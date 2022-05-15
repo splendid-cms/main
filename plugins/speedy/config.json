@@ -3,5 +3,20 @@
     "_description": "Speedy plugin provides configuration for various FIGlet fonts in your startup terminal!",
     "_version": "1.2",
     "_comment": "A font taken from FIGlet package, list can be found here https://patorjk.com/software/taag/",
-    "Font": "Speed"
+    "Font": "Speed",
+    "test1": {
+        "test2": "test2",
+        "test3": "test3",
+        "test4": "test4",
+        "test9": {
+            "test10": "test10",
+            "test11": "test11",
+            "test12": "test12"
+        }
+    },
+    "test5": {
+        "test6": "test6",
+        "test7": "test7",
+        "test8": "test8"
+    }
 }

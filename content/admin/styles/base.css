@@ -19,6 +19,10 @@
   left: 50%;
 }
 
+.staircase {
+  padding-left: 10px;
+}
+
 a {
   text-decoration: none;
 }
@@ -67,20 +71,42 @@ tr:nth-child(even) {
   background-color: #373839;
 }
 
-form section {
+button {
+  background-color: #28292a;
+  padding: 10px;
+  margin-top: 3px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  outline: 2px solid #76a43d;
+}
+
+button:active {
+  outline: 3px solid #76a43d;
+}
+
+section {
   margin: 0 0 20px 0;
   position: relative;
-  /* for password toggle positioning */
 }
 
 label {
   display: block;
+  color: #e6e6e6;
 }
 
 input {
+  width: 220px;
   background-color: #28292a;
   padding: 10px;
   border: 0;
+}
+
+input:autofill {
+  -webkit-box-shadow: 0 0 0 30px #2d2e2f inset !important;
+          box-shadow: 0 0 0 30px #2d2e2f inset !important;
 }
 
 input:focus {

@@ -2,7 +2,7 @@
     "Website_name": "Splendid",
     "Theme": "preshow",
     "Icon": "favicon.ico",
-    "Port": 80,
+    "Port": 3000,
     "Plugins": [],
     "Content": {
         "Header": {

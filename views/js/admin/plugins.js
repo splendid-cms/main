@@ -16,11 +16,23 @@ module.exports = function (fastify, opts, next) {
 		});
 	});
 
-    // Configuration file, soon will be updated
+    // Configuration file
     fastify.get('/:plugin/config', (req, res) => {
-        try { var content = fs.readFileSync('./plugins/' + req.params.plugin + '/config.json', 'utf8'); }
-        catch (err) { content = notFound(); }
-        res.code(200).send(content);
+        let filePath = `./plugins/${req.params.plugin}/config.json`
+        if (!fs.existsSync(filePath)) res.code(404).send('not found go away lmao noob 404');
+        let content = JSON.stringify(JSON.parse(fs.readFileSync(filePath, 'utf8')));
+        let brlength = content.split("}").length - 1;
+        content = content
+        .replace(/"_comment":"(.*?)"(?:,|)/g, '<p>$1</p>')
+        .replace(/"_([^"]*)":"(.*?)"(?:,|)/g, '')
+        .replace(/"([^"]*)":"(.*?)"/g, '<section><label>$1</label><input type="text" value="$2" placeholder="$2" required></section>')
+        .replace(/"([^"]*)":/g, '<h2>$1</h2>')
+        .replace(/(>|}),</gm, '$1<');
+        for (let i = 0; i < brlength; i++) content = content.replace(/{(.*?)}/g, '<div class="staircase">$1</div>');
+        res.code(200).view('./content/admin/html/main.html', {
+            url: "plugin-config",
+            content: content
+        });
     });
 
     // Plugin toggle link
@@ -64,7 +76,7 @@ module.exports = function (fastify, opts, next) {
                 </tr>`;
             });
             res.code(200).view('./content/admin/html/main.html', {
-                url: req.url.slice(10),
+                url: "plugins",
                 content: content
             });
         });
