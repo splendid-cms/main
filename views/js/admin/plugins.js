@@ -20,13 +20,13 @@ module.exports = function (fastify, opts, next) {
     fastify.get('/:plugin/config', (req, res) => {
         try { var content = fs.readFileSync('./plugins/' + req.params.plugin + '/config.json', 'utf8'); }
         catch (err) { content = notFound(); }
-        res.send(content);
+        res.code(200).send(content);
     });
 
     // Plugin toggle link
     fastify.get('/:plugin/toggle', (req, res) => {
         let plugin = req.params.plugin;
-        if (!plugin || !fs.existsSync(path.resolve(`./plugins/${plugin}/main.js`))) return res.send({statusCode: '404'});
+        if (!plugin || !fs.existsSync(path.resolve(`./plugins/${plugin}/main.js`))) return res.code(404).send({statusCode: '404'});
         let index = config.Plugins.indexOf(plugin);
         if (index === -1) config.Plugins.push(plugin);
         else config.Plugins.splice(index, 1);
@@ -63,7 +63,7 @@ module.exports = function (fastify, opts, next) {
                     </td>
                 </tr>`;
             });
-            res.view('./content/admin/html/main.html', {
+            res.code(200).view('./content/admin/html/main.html', {
                 url: req.url.slice(10),
                 content: content
             });

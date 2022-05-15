@@ -32,5 +32,16 @@
         }
     ],
     "Salt": "Change this to random 16 char string",
-    "Debug": true
+    "Debug": {
+        "Terminal": true,
+        "Log Requests/Response": true,
+        "Log In Terminal": {
+            "Info": true,
+            "Error": true,
+            "Debug": true,
+            "Fatal": true,
+            "Warn": true,
+            "Trace": true
+        }
+    }
 }

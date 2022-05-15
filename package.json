@@ -18,6 +18,7 @@
     "image-size": "^1.0.1",
     "nodemon": "^2.0.15",
     "point-of-view": "^5.2.0",
+    "process-warning": "^1.0.0",
     "showdown": "^2.0.3",
     "showdown-highlight": "^3.0.0"
   }

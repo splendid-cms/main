@@ -38,8 +38,8 @@ eraseSession = function (token) {
 }
 
 // Saves a given error in the /cache/log/errors
-saveError = function (payload) {
-    const filePath = path.join(logs, 'errors');
+saveLog = function (type, payload) {
+    const filePath = path.join(logs, type);
     if (!fs.existsSync(logs)) fs.mkdirSync(logs, { recursive: true });
     fs.appendFileSync(filePath, `${getFormatTime()} ${payload}\n`);
 }

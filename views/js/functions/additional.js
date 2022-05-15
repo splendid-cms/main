@@ -26,9 +26,9 @@ beautify = function (string) {
 defineMessage = function (type, string) {
     if (!string) return;
     string = chalk.gray(string);
-    if (type == 'OK') return chalk.bgGreen(' OK ') + ' ' + string;
-    if (type == 'WARN') return chalk.bgYellow(' WARN ') + ' ' + string;
-    if (type == 'ERR') return chalk.bgRed(' ERR ') + ' ' + string;
+    if (type == 'OK' && config.Debug["Log In Terminal"].Info) return `${chalk.bgGreen(' OK ')} ${string}`;
+    if (type == 'WARN' && config.Debug["Log In Terminal"].Warn) return `${chalk.bgYellow(' WARN ')} ${string}`;
+    if (type == 'ERR' && config.Debug["Log In Terminal"].Error) return `${chalk.bgRed(' ERR ')} ${string}`;
     return chalk.white.bgRed.bold(' ERR ') + chalk.gray(' Wrong type provided!');
 }
 

@@ -10,7 +10,7 @@ module.exports = function (fastify, opts, next) {
         url = (url.endsWith('/')) ? url.slice(0, -1) : url;
         if (url == login) return next();
         try { const session = getSession(req.cookies.session) }
-        catch { res.redirect(login) }
+        catch { res.code(301).redirect(login) }
         next();
     });
 
@@ -21,7 +21,7 @@ module.exports = function (fastify, opts, next) {
 
     // Login page
     fastify.get('/login', (req, res) => {
-        res.view('./content/admin/pages/login.html');
+        res.code(200).view('./content/admin/pages/login.html');
     });
 
     // Logout page that will not store cache,
@@ -49,7 +49,7 @@ module.exports = function (fastify, opts, next) {
     fastify.get('', (req, res) => {
         let url = req.url;
         if (url.endsWith('/')) url = url.slice(0, -1)
-        res.redirect(url + '/dashboard');
+        res.code(301).redirect(url + '/dashboard');
     });
     next();
 }

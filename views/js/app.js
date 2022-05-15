@@ -1,11 +1,12 @@
 const path = require('path');
 const config = require(path.resolve("./config.json"));
 const icon = path.join(path.resolve('./content/media'), config.Icon);
-// const Logger = (config.Debug) ? new require('./logger.js') : false ;
 const Logger = require('./logger');
+const choice = (config.Debug.Terminal) ? new Logger() : false ;
 const fastify = require('fastify')({
-    logger: new Logger,
-    ignoreTrailingSlash: true
+    logger: choice,
+    ignoreTrailingSlash: true,
+    disableRequestLogging: !config.Debug["Log Requests/Response"]
 });
 const fs = require('fs');
 
@@ -70,7 +71,7 @@ fastify.register(require('./admin'), {
 // Adding an icon to the website
 fastify.get('/favicon.ico', (req, res) => {
     stream = fs.createReadStream(icon);
-    res.type('image/png').send(stream);
+    res.code(200).type('image/png').send(stream);
 });
 
 // Reading matching the url file
@@ -80,13 +81,20 @@ fastify.get('/favicon.ico', (req, res) => {
 // (rendering ejs file with .html ext)
 fastify.get('*', (req, res) => {
     let url = req.url;
+    let code = 200
     if (url.endsWith('/')) url = url.slice(0, -1);
     if (!url) url = "/home";
     try { var content = fs.readFileSync('./pages' + url + '.md', 'utf8'); }
-    catch (err) { content = notFound(); }
+    catch {
+        content = notFound();
+        code = 404;
+    }
     try { var summary = fs.readFileSync('./views/summary.md', 'utf8'); }
-    catch (err) { summary = notFound(); }
-    res.view('./content/themes/' + config.Theme + '/main.html', render(content, summary));
+    catch {
+        summary = notFound();
+        code = 404;
+    }
+    res.code(code).view('./content/themes/' + config.Theme + '/main.html', render(content, summary));
 });
 
 // Listening and analyzing the issues.
