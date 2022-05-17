@@ -3,44 +3,50 @@ const logs = './cache/log';
 const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
-const fastify = require('fastify');
 const config = require(path.resolve("./config.json"));
 
 // Encrypts data using sha256
-sha256 = function (data) {
+sha256 = (data) => {
     return crypto.createHash('sha256').update(data, 'utf-8').digest('hex')
 }
 
 // Hashes the password with a salt
-hashPassword = function () {
+hashPassword = () => {
     return sha256([...Array.from(arguments), config.Salt].join(''))
 }
 
 // Gets the session info, returns error
 // if there's no session file
 // or if it's not logged in
-getSession = function (token) {
+getSession = (token) => {
     const filePath = path.join(sessions, token);
     return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
 
 // Saves the session in cache/session/[token]
-saveSession = function (token, payload) {
+saveSession = (token, payload) => {
     const filePath = path.join(sessions, token);
     if (!fs.existsSync(sessions)) fs.mkdirSync(sessions, { recursive: true });
     fs.writeFileSync(filePath, JSON.stringify(payload));
 }
 
 // Hardly logs out all sessions for an account.
-eraseSession = function (token) {
+eraseSession = (token) => {
     const filePath = path.join(sessions, token);
     if (fs.existsSync(filePath)) return fs.rmSync(filePath, { force: true });
 }
 
-// Saves a given error in the /cache/log/errors
-saveLog = function (type, payload) {
-    const filePath = path.join(logs, type);
-    if (!fs.existsSync(logs)) fs.mkdirSync(logs, { recursive: true });
+// Saves a given data in the /cache/log/[type]/[1...].log file
+saveLog = (type, payload) => {
+    let dirPath = path.join(logs, type);
+    let first = path.join(dirPath, '1.log');
+    if (!fs.existsSync(first)) fs.writeFileSync(first, '');
+    let last = fs.readdirSync(dirPath).pop();
+    let fileIndex = parseInt(last.slice(0, -4));
+    let lines = fs.readFileSync(path.join(dirPath, last), 'utf-8').split(/\r?\n/);
+    if (lines.length > 200) fileIndex++;
+    let filePath = path.join(dirPath, fileIndex + '.log');
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
     fs.appendFileSync(filePath, `${getFormatTime()} ${payload}\n`);
 }
 

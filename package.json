@@ -11,14 +11,14 @@
     "@fastify/formbody": "^6.0.1",
     "@fastify/session": "^8.2.0",
     "@fastify/static": "^5.0.0",
-    "chalk": "^4.1.2",
+    "colorette": "^2.0.16",
     "ejs": "^3.1.6",
     "fastify": "^3.29.0",
     "figlet": "^1.5.2",
     "image-size": "^1.0.1",
     "nodemon": "^2.0.15",
+    "pino-pretty": "^7.6.1",
     "point-of-view": "^5.2.0",
-    "process-warning": "^1.0.0",
     "showdown": "^2.0.3",
     "showdown-highlight": "^3.0.0"
   }

@@ -96,8 +96,8 @@ input {
     &:focus {
         outline: 2px solid $green-1
     }
-    &[type=email]:not(:focus):invalid,
-    &[type=password]:not(:focus):invalid {
+    &[type=email]:not(:focus):not(:empty):invalid,
+    &[type=password]:not(:focus):not(:empty):invalid {
         color: $red;
         outline-color: $red;
     }

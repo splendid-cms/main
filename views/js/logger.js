@@ -1,105 +1,61 @@
-const chalk = require('chalk');
+const config = require(require('path').resolve("./config.json"));
+const colorette = require('colorette');
 
-module.exports = class Logger {
-    constructor(...args) {
-        this.args = args;
-    }
+module.exports = {
+    useOnlyCustomLevels: true,
+    customLevels: {
+        info: 'info',
+        fatal: 'fatal',
+        error: 'error',
+        warn: 'warn',
+        debug: 'debug',
+    },
+    prettyPrint: {
+        messageKey: 'msg',
+        timestampKey: false,
+        // Don't log these automatically
+        ignore: 'pid,hostname,reqId,responseTime,req,res,err',
+        messageFormat: (log, messageKey) => {
+            saveLog(log.level, JSON.stringify(log)); // save each log with json
 
-    // Info log,
-    // return if not an object,
-    // return response if res exists,
-    // return request if else
-    info(arg) {
-        if (typeof arg !== 'object') return console.log(chalk.bgGreen(` ${getFormatTime()} `) + ': ' + arg);
-        if (arg.hasOwnProperty('res')) {
-            var message = chalk.gray(
-                arg.res.raw.req.method +
-                chalk.white(arg.res.raw.req.url) +
-                ' response for ' +
-                Math.round(arg.responseTime) + 'ms'
-            );
-            saveLog('info',
-                arg.res.raw.req.method +
-                arg.res.raw.req.url +
-                ' response for ' +
-                Math.round(arg.responseTime) + 'ms'
-            );
+            // If error
+            if (log.err && log.req) {
+                let methodurl = log.req.method + colorette.white(log.req.url);
+                let out = methodurl + ' ' + log[messageKey].toLowerCase();
+                return colorette.gray(out);
+            }
+
+            // If response
+            if (log.res) {
+                let time = Math.round(log.responseTime);
+                let out = `${log[messageKey]} for ${time}ms`;
+                if (!config.Debug['Log Requests/Response']) return;
+                return colorette.gray(out);
+            }
+
+            // If request
+            if (log.req) {
+                let methodurl = log.req.method + colorette.white(log.req.url);
+                let out = methodurl + ' ' + log[messageKey].toLowerCase() + ' from ' + log.req.remoteAddress;
+                if (!config.Debug['Log Requests/Response']) return;
+                return colorette.gray(out);
+            }
+
+            // Else
+            return colorette.gray(log[messageKey]);
+        },
+        customPrettifiers: {
+            // Colorize self-made timestamp
+            level: ll => {
+                let time = ` ${getFormatTime()} `;
+                let out = colorette.inverse(time);
+                if (ll === 'debug') out = colorette.bgBlue(time);
+                if (ll === 'info') out = colorette.bgGreen(time);
+                if (ll === 'warn') out = colorette.bgYellow(time);
+                if (ll === 'error') out = colorette.bgRed(time);
+                if (ll === 'fatal') out = colorette.bgMagenta(time);
+                return out;
+            }
         }
-        else {
-            var message = chalk.gray(
-                arg.req.raw.method +
-                chalk.white(arg.req.raw.url) +
-                ' request'
-            );
-            saveLog('info',
-                arg.req.raw.method +
-                arg.req.raw.url +
-                ' request'
-            );
-        }
-        console.log(chalk.bgGreen(` ${getFormatTime()} `) + ': ' + message);
     }
-
-    // Either
-    // return error with full error code
-    // or an argument if there's no
-    // given keys
-    error(arg) {
-        try {
-            var message = chalk.gray(
-                arg.req.raw.method +
-                chalk.white(arg.req.raw.url) +
-                ' with error code ' +
-                arg.err.code
-            );
-            saveLog('errors', arg.err.code);
-        } catch {
-            var message = chalk.gray(arg);
-            saveLog('errors', arg);
-        }
-        console.log(chalk.bgRed(` ${getFormatTime()} `) + ': ' + message);
-    }
-
-    // Debug log with bg blue
-    debug(arg) {
-        console.log(chalk.bgBlue(` ${getFormatTime()} `) + ': ' + chalk.gray(arg));
-    }
-
-    // Return error code if given,
-    // else return entire arg
-    fatal(arg) {
-        try {
-            var message = chalk.gray(
-                'Fatal error with code ' +
-                arg.err.code
-            );
-            saveLog('fatal', arg.err.code);
-        } catch {
-            var message = chalk.gray(arg);
-            saveLog('fatal', arg);
-        }
-        console.log(chalk.bgMagenta(` ${getFormatTime()} `) + ': ' + message);
-    }
-
-    // Works the same as error
-    warn(arg) {
-        try {
-            var message = chalk.gray(
-                arg.req.raw.method +
-                chalk.white(arg.req.raw.url) +
-                ' with error code ' +
-                arg.err.code
-            );
-        } catch {
-            var message = chalk.gray(arg);
-        }
-        console.log(chalk.bgYellow(` ${getFormatTime()} `) + ': ' + message);
-    }
-
-    // Trace log with bg cyan
-    trace(arg) {
-        console.log(chalk.bgCyan(` ${getFormatTime()} `) + ': ' + chalk.gray(arg));
-    }
-
-    child() { return new Logger(); }
 }

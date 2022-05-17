@@ -1,8 +1,7 @@
 const path = require('path');
 const config = require(path.resolve("./config.json"));
 const icon = path.join(path.resolve('./content/media'), config.Icon);
-const Logger = require('./logger');
-const choice = (config.Debug.Terminal) ? new Logger() : false ;
+let choice = (config.Debug.Terminal) ? require('./logger') : false;
 const fastify = require('fastify')({
     logger: choice,
     ignoreTrailingSlash: true,
@@ -86,20 +85,29 @@ fastify.get('/favicon.ico', (req, res) => {
 // (rendering ejs file with .html ext)
 fastify.get('*', (req, res) => {
     let url = req.url;
-    let code = 200
+    let code = 200;
     if (url.endsWith('/')) url = url.slice(0, -1);
     if (!url) url = "/home";
+    let cache = './cache/pages';
+    let filePath = `${cache}/${url}.html`;
+    if (fs.existsSync(filePath)) {
+        res.code(code).view(filePath);
+        return;
+    }
     try { var content = fs.readFileSync('./pages' + url + '.md', 'utf8'); }
     catch {
         content = notFound();
         code = 404;
     }
     try { var summary = fs.readFileSync('./views/summary.md', 'utf8'); }
-    catch {
-        summary = notFound();
-        code = 404;
-    }
-    res.code(code).view('./themes/' + config.Theme + '/main.html', render(content, summary));
+    catch { summary = notFound(); }
+    if (!fs.existsSync(cache)) fs.mkdirSync(cache, { recursive: true });
+    res.code(code).view(`./themes/${config.Theme}/main.html`, render(content, summary));
+    if (code === 404) return;
+    fastify.view(`./themes/${config.Theme}/main.html`, render(content, summary), (err, html) => {
+        console.log(html)
+        fs.writeFileSync(filePath, err || html);
+    });
 });
 
 // Listening and analyzing the issues.

@@ -1,9 +1,9 @@
 const path = require('path');
 const config = require(path.resolve("./config.json"));
-const chalk = require('chalk');
+const colorette = require('colorette');
 
 // Analyze any available issue through a one single function
-analyze = function (host) {
+analyze = (host) => {
     const icon = path.join(path.resolve('./content/media'), config.Icon);
     const size = require('image-size')(icon);
     if ((size.width || size.height) > 48) console.log(defineMessage('WARN', 'Can not load an icon, too big size!'));
@@ -17,27 +17,27 @@ analyze = function (host) {
 // Beautifies given string making
 // 'render-logo' look like
 // 'Render logo'
-beautify = function (string) {
+beautify = (string) => {
     let str = string.charAt(0).toUpperCase() + string.slice(1);
     return str.replace(/-|_/g, ' ')
 }
 
 // Custom message format: OK, WARN, ERR
-defineMessage = function (type, string) {
+defineMessage = (type, string) => {
     if (!string) return;
-    string = chalk.gray(string);
-    if (type == 'OK' && config.Debug["Log In Terminal"].Info) return `${chalk.bgGreen(' OK ')} ${string}`;
-    if (type == 'WARN' && config.Debug["Log In Terminal"].Warn) return `${chalk.bgYellow(' WARN ')} ${string}`;
-    if (type == 'ERR' && config.Debug["Log In Terminal"].Error) return `${chalk.bgRed(' ERR ')} ${string}`;
-    return chalk.white.bgRed.bold(' ERR ') + chalk.gray(' Wrong type provided!');
+    string = colorette.gray(string);
+    if (type == 'OK' && config.Debug["Log In Terminal"].Info) return `${colorette.bgGreen(' OK ')} ${string}`;
+    if (type == 'WARN' && config.Debug["Log In Terminal"].Warn) return `${colorette.bgYellow(' WARN ')} ${string}`;
+    if (type == 'ERR' && config.Debug["Log In Terminal"].Error) return `${colorette.bgRed(' ERR ')} ${string}`;
+    return colorette.white.bgRed.bold(' ERR ') + colorette.gray(' Wrong type provided!');
 }
 
 // Get formatted time like "05/14/2022 17:48:13"
-getFormatTime = function () {
+getFormatTime = () => {
     let now = new Date();
     return `${
-        (now.getMonth()+1).toString().padStart(2, '0')}/${
         now.getDate().toString().padStart(2, '0')}/${
+        (now.getMonth()+1).toString().padStart(2, '0')}/${
         now.getFullYear().toString().padStart(4, '0')} ${
         now.getHours().toString().padStart(2, '0')}:${
         now.getMinutes().toString().padStart(2, '0')}:${
@@ -46,18 +46,18 @@ getFormatTime = function () {
 }
 
 // What to return on 404
-notFound = function () {
+notFound = () => {
     return '404';
 }
 
 // Startup function
-onStartup = function (name) {
+onStartup = (name) => {
     console.clear();
-    console.log(chalk.green.bold(require('figlet').textSync(name)));
+    console.log(colorette.green(require('figlet').textSync(name)));
 }
 
 // Render elements
-render = function (data, summary) {
+render = (data, summary) => {
     const showdown = require('showdown');
     const converter = new showdown.Converter(showdownConverter());
     return {
@@ -69,7 +69,7 @@ render = function (data, summary) {
 }
 
 // Showdown converter options
-showdownConverter = function () {
+showdownConverter = () => {
     return {
         strikethrough: 'true',
         tables: 'true',
@@ -81,7 +81,7 @@ showdownConverter = function () {
 }
 
 // Convert header JSON to header HTML
-headerJSON = function () {
+headerJSON = () => {
     let header = JSON.stringify(config.Content.Header);
     header = header
         .replace(/"(.*?)":"(.*?)"/gm, '<li><a href="$2">$1</a></li>')
@@ -91,7 +91,7 @@ headerJSON = function () {
 }
 
 // Convert sidebar JSON to sidebar HTML list
-sidebarJSON = function () {
+sidebarJSON = () => {
     let sidebar = JSON.stringify(config.Content.Sidebar);
     let brlength = sidebar.split("}").length - 3;
     sidebar = sidebar.slice(1, -1)
