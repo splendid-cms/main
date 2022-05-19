@@ -12,18 +12,34 @@
 </head>
 <body>
     <div class="box abs-center">
-        <form action="#" method="post">
+        <form method="post">
             <h1>Login</h1>
             <section>
                 <label for="email">Email</label>
-                <input type="email" placeholder="john.doe@gmail.com" name="email" autocomplete="email" id="email" required>
+                <input
+                    type="email"
+                    placeholder="john.doe@gmail.com"
+                    name="email"
+                    autocomplete="email"
+                    id="email"
+                    required
+                >
             </section>
             <section>
                 <label for="current-password">Password</label>
-                <input type="password" placeholder="12345678" name="current-password" autocomplete="current-password" id="current-password" required>
+                <input
+                    type="password"
+                    placeholder="12345678"
+                    name="current-password"
+                    autocomplete="current-password"
+                    id="current-password"
+                    required
+                >
                 <button id="toggle-password" type="button" aria-label="Show password as plain text. Warning: this will display your password on the screen.">Show password</button>
             </section>
-            <button id="signin">Sign in</button>
+            <!-- <button id="signin">Sign in</button> -->
+            <input type="submit" value="Submit">
+            <%- content %>
         </form>
     </div>
 </body>

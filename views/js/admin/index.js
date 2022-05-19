@@ -23,7 +23,27 @@ module.exports = function (fastify, opts, next) {
 
     // Login page
     fastify.get('/login', (req, res) => {
-        res.code(200).view('./content/admin/pages/login.html');
+        res.code(200).view('./content/admin/pages/login.html', {
+            content: ''
+        });
+    });
+    fastify.post('/login', (req, res) => {
+        const q = req.body;
+        const invalid = '<span class="error">Invalid login provided!</spam>'
+        const userData = config.Users.find(user => 
+            user.Email === q.email && 
+            hashPassword(user.Email, user.Password) === hashPassword(q.email, q['current-password'])
+        );
+        if (!userData) return res.code(401).view('./content/admin/pages/login.html', { content: invalid });
+        const token = sha256(userData.Email);
+        saveSession(token, { ID: userData.ID });
+        res.setCookie('session', token, {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 7,
+            path: config["Admin Dashboard Prefix"]
+        });
+        fastify.log.warn('New account has logged in! Creating new session.')
+        res.code(301).redirect(config["Admin Dashboard Prefix"] + '/dashboard');
     });
 
     // Logout page that will not store cache,

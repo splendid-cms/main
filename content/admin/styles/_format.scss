@@ -12,6 +12,10 @@
     background-color: $primary-dark;
     margin: 0 10px 10px 0;
 }
+.error {
+    color: $red;
+    font-size: 14px;
+}
 .abs-center {
     position: absolute;
     transform: translate(-50%, -50%);
@@ -94,7 +98,8 @@ tr:nth-child(even) {
     background-color: darken($primary, 1%);
 }
 
-button {
+button, input[type="submit"] {
+    width: max-content;
     background-color: darken($primary-dark, 5%);
     padding: 10px;
     margin-top: 3px;

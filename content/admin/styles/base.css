@@ -11,6 +11,11 @@
   margin: 0 10px 10px 0;
 }
 
+.error {
+  color: #cd5c5c;
+  font-size: 14px;
+}
+
 .abs-center {
   position: absolute;
   -webkit-transform: translate(-50%, -50%);
@@ -114,7 +119,10 @@ tr:nth-child(even) {
   background-color: #373839;
 }
 
-button {
+button, input[type="submit"] {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   background-color: #28292a;
   padding: 10px;
   margin-top: 3px;
@@ -122,11 +130,11 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover, input[type="submit"]:hover {
   outline: 2px solid #76a43d;
 }
 
-button:active {
+button:active, input[type="submit"]:active {
   outline: 3px solid #76a43d;
 }
 
@@ -299,7 +307,7 @@ header i {
   font-size: 20px;
 }
 
-.sidebar ul li a:hover i, .sidebar ul li a:hover {
+.sidebar ul li a:hover i, .sidebar ul li a:hover, .sidebar ul li a.highlight i, .sidebar ul li a.highlight {
   color: #76a43d;
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;

@@ -85,7 +85,7 @@ header {
                     min-width: 28px;
                     font-size: 20px;
                 }
-                &:hover i, &:hover {
+                &:hover i, &:hover, &.highlight i, &.highlight {
                     color: $green-1;
                     transition: $trans-1;
                 }

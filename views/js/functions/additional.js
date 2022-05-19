@@ -57,7 +57,7 @@ onStartup = (name) => {
 }
 
 // Render elements
-render = (data, summary) => {
+render = (data) => {
     const showdown = require('showdown');
     const converter = new showdown.Converter(showdownConverter());
     return {

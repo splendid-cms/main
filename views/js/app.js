@@ -100,12 +100,10 @@ fastify.get('*', (req, res) => {
         content = notFound();
         code = 404;
     }
-    try { var summary = fs.readFileSync('./views/summary.md', 'utf8'); }
-    catch { summary = notFound(); }
     if (!fs.existsSync(cache)) fs.mkdirSync(cache, { recursive: true });
-    res.code(code).view(`./themes/${config.Theme}/main.html`, render(content, summary));
+    res.code(code).view(`./themes/${config.Theme}/main.html`, render(content));
     if (code === 404) return;
-    fastify.view(`./themes/${config.Theme}/main.html`, render(content, summary), (err, html) => {
+    fastify.view(`./themes/${config.Theme}/main.html`, render(content), (err, html) => {
         fs.writeFileSync(filePath, err || html);
     });
 });

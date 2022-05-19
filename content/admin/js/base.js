@@ -1,6 +1,12 @@
-var element = document.querySelectorAll('.sidebar, .sidebar *, .shadow, body');
+var menu = document.querySelectorAll('.sidebar, .sidebar *, .shadow, body');
+var highlight = document.querySelectorAll('.header [href], .sidebar [href]');
 function menu() {
-    element.forEach(element => {
+    menu.forEach(element => {
         element.classList.toggle('active');
     });
 };
+
+highlight.forEach(element => {
+    if (element.href != window.location.href) return;
+    element.classList.add('highlight');
+});

@@ -17,34 +17,35 @@ module.exports = function (fastify, opts, next) {
 	});
 
     // Configuration file
-    // fastify.get('/:plugin/config', (req, res) => {
-    //     let filePath = `./plugins/${req.params.plugin}/config.json`
-    //     if (!fs.existsSync(filePath)) res.code(404).send('not found go away lmao noob 404');
-    //     let content = JSON.stringify(JSON.parse(fs.readFileSync(filePath, 'utf8')));
-    //     let brlength = content.split("}").length - 1;
-    //     content = content
-    //     .replace(/"_comment":"(.*?)"(?:,|)/g, '<p>$1</p>')
-    //     .replace(/"_([^"]*)":"(.*?)"(?:,|)/g, '')
-    //     .replace(/"([^"]*)":"(.*?)"/g, '<section><label>$1</label><input type="text" value="$2" placeholder="$2" required></section>')
-    //     .replace(/"([^"]*)":/g, '<h2>$1</h2>')
-    //     .replace(/(>|}),</gm, '$1<');
-    //     for (let i = 0; i < brlength; i++) content = content.replace(/{(.*?)}/g, '<div class="staircase">$1</div>');
-    //     res.code(200).view('./content/admin/html/main.html', {
-    //         url: "plugin-config",
-    //         content: content
-    //     });
-    // });
+    fastify.get('/:plugin/config', (req, res) => {
+        let filePath = `./plugins/${req.params.plugin}/config.json`
+        if (!fs.existsSync(filePath)) res.code(404).send('not found go away lmao noob 404');
+        let content = JSON.stringify(JSON.parse(fs.readFileSync(filePath, 'utf8')));
+        let brlength = content.split("}").length - 1;
+        content = content
+        .replace(/"_comment":"(.*?)"(?:,|)/g, '<p>$1</p>')
+        .replace(/"_([^"]*)":"(.*?)"(?:,|)/g, '')
+        .replace(/"([^"]*)":"(.*?)"/g, '<section><label>$1</label><input type="text" value="$2" placeholder="$2" required></section>')
+        .replace(/"([^"]*)":/g, '<h2>$1</h2>')
+        .replace(/(>|}),</gm, '$1<');
+        for (let i = 0; i < brlength; i++) content = content.replace(/{(.*?)}/g, '<div class="staircase">$1</div>');
+        res.code(200).view('./content/admin/html/main.html', {
+            url: "plugin-config",
+            content: content
+        });
+    });
 
     // Plugin toggle link
-    // fastify.get('/:plugin/toggle', (req, res) => {
-    //     let plugin = req.params.plugin;
-    //     if (!plugin || !fs.existsSync(`./plugins/${plugin}/main.js`)) return res.code(404).send({statusCode: '404'});
-    //     let index = config.Plugins.indexOf(plugin);
-    //     if (index === -1) config.Plugins.push(plugin);
-    //     else config.Plugins.splice(index, 1);
-    //     fs.writeFileSync(cfgPath, JSON.stringify(config, null, 4))
-    //     res.code(301).redirect(`${config["Admin Dashboard Prefix"]}/plugins`);
-    // });
+    fastify.get('/:theme/toggle', (req, res) => {
+        let theme = req.params.theme;
+        if (!theme || (!fs.existsSync(`./themes/${theme}/main.html`) && !fs.existsSync(`./themes/${theme}/main.ejs`))) {
+            return res.code(404).send({statusCode: '404'});
+        }
+        fs.rmdirSync('./cache/pages', { recursive: true });
+        config.Theme = theme;
+        fs.writeFileSync(cfgPath, JSON.stringify(config, null, 4));
+        res.code(301).redirect(`${config["Admin Dashboard Prefix"]}/themes`);
+    });
 
     // Previewing a theme via getting home.md data
     fastify.get('/:theme/preview', (req, res) => {
@@ -61,12 +62,10 @@ module.exports = function (fastify, opts, next) {
             content = notFound();
             code = 404;
         }
-        try { var summary = fs.readFileSync('./views/summary.md', 'utf8'); }
-        catch { summary = notFound(); }
-        res.code(code).view(`./themes/${theme}/${main}`, render(content, summary));
+        res.code(code).view(`./themes/${theme}/${main}`, render(content));
     })
 
-    // Main plugin web page
+    // Main theme web page
     fastify.get('', (req, res) => {
         var content = '';
         fs.readdir('./themes', { withFileTypes: true }, (err, files) => {
@@ -97,9 +96,9 @@ module.exports = function (fastify, opts, next) {
                 let filePath = `./themes/${directory}/config.json`;
                 if (fs.existsSync(filePath)) {
                     var {_developer, _version, ...rest} = require(path.resolve(filePath));
-                    if (Object.keys(rest).length !== 0) var cog = `- <a href="plugins/${directory}/config">configure</a>`;
+                    if (Object.keys(rest).length !== 0) var cog = `- <a href="themes/${directory}/config">configure</a>`;
                 }
-                if (config.Plugins.includes(directory)) var act = 'active';
+                if (config.Theme === directory) var act = 'active';
                 content += `
                 <div class="box">
                     <section>
@@ -112,7 +111,7 @@ module.exports = function (fastify, opts, next) {
                     </section>
                     <section>
                     <label>${beautify(directory)}<span> ${_developer || 'Unknown'}</span></label>
-                    <span>v${_version || '1.0'} - <a href="plugins/${directory}/toggle">${act || 'inactive'}</a> ${cog || ''}</span>
+                    <span>v${_version || '1.0'} - <a href="themes/${directory}/toggle">${act || 'inactive'}</a> ${cog || ''}</span>
                     </section>
                     <a
                         class="previewButton"
