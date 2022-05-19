@@ -40,13 +40,13 @@ eraseSession = (token) => {
 saveLog = (type, payload) => {
     let dirPath = path.join(logs, type);
     let first = path.join(dirPath, '1.log');
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
     if (!fs.existsSync(first)) fs.writeFileSync(first, '');
     let last = fs.readdirSync(dirPath).pop();
     let fileIndex = parseInt(last.slice(0, -4));
     let lines = fs.readFileSync(path.join(dirPath, last), 'utf-8').split(/\r?\n/);
     if (lines.length > 200) fileIndex++;
     let filePath = path.join(dirPath, fileIndex + '.log');
-    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
     fs.appendFileSync(filePath, `${getFormatTime()} ${payload}\n`);
 }
 

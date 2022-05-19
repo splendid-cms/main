@@ -38,7 +38,7 @@ module.exports = function (fastify, opts, next) {
     // Plugin toggle link
     fastify.get('/:plugin/toggle', (req, res) => {
         let plugin = req.params.plugin;
-        if (!plugin || !fs.existsSync(path.resolve(`./plugins/${plugin}/main.js`))) return res.code(404).send({statusCode: '404'});
+        if (!plugin || !fs.existsSync(`./plugins/${plugin}/main.js`)) return res.code(404).send({statusCode: 404}); // Soon
         let index = config.Plugins.indexOf(plugin);
         if (index === -1) config.Plugins.push(plugin);
         else config.Plugins.splice(index, 1);
@@ -62,16 +62,18 @@ module.exports = function (fastify, opts, next) {
             })
             .map((item) => item.name)
             .forEach((directory) => {
-                const {_developer, _description, _version, ...rest} = require(path.resolve(`./plugins/${directory}/config.json`)) || {};
-                let cog = `- <a href="plugins/${directory}/config">configure</a>`;
-                if (Object.keys(rest).length === 0) cog = '';
+                let filePath = `./plugins/${directory}/config.json`;
+                if (fs.existsSync(filePath)) {
+                    var {_developer, _description, _version, ...rest} = require(path.resolve(filePath));
+                    if (Object.keys(rest).length !== 0) var cog = `- <a href="plugins/${directory}/config">configure</a>`;
+                }
                 if (config.Plugins.includes(directory)) var act = 'active';
                 content += `
                 <tr>
                     <td>${beautify(directory)}<br><span>${_developer || 'Unknown'}</span></td>
                     <td>
                         ${_description || ''}<br>
-                        <span>v${_version || '1.0'} - <a href="plugins/${directory}/toggle">${act || 'deactive'}</a> ${cog}</span>
+                        <span>v${_version || '1.0'} - <a href="plugins/${directory}/toggle">${act || 'inactive'}</a> ${cog || ''}</span>
                     </td>
                 </tr>`;
             });

@@ -14,9 +14,11 @@ module.exports = function (fastify, opts, next) {
         next();
     });
 
-    // Including ./plugins.js route
-    fastify.register(require('./plugins.js'), {
+    // Including some pages route
+    fastify.register(require('./plugins'), {
         prefix: '/plugins'
+    }).register(require('./themes'), {
+        prefix: '/themes'
     });
 
     // Login page

@@ -90,11 +90,12 @@ fastify.get('*', (req, res) => {
     if (!url) url = "/home";
     let cache = './cache/pages';
     let filePath = `${cache}/${url}.html`;
-    if (fs.existsSync(filePath)) {
+    let dataPath = `./pages${url}.md`;
+    if (fs.existsSync(filePath) && fs.statSync(filePath).mtimeMs > fs.statSync(dataPath).mtimeMs) {
         res.code(code).view(filePath);
         return;
     }
-    try { var content = fs.readFileSync('./pages' + url + '.md', 'utf8'); }
+    try { var content = fs.readFileSync(dataPath, 'utf8'); }
     catch {
         content = notFound();
         code = 404;
@@ -105,7 +106,6 @@ fastify.get('*', (req, res) => {
     res.code(code).view(`./themes/${config.Theme}/main.html`, render(content, summary));
     if (code === 404) return;
     fastify.view(`./themes/${config.Theme}/main.html`, render(content, summary), (err, html) => {
-        console.log(html)
         fs.writeFileSync(filePath, err || html);
     });
 });

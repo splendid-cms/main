@@ -23,6 +23,49 @@
   padding-left: 10px;
 }
 
+.grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: calc(33vw - 90px) calc(33vw - 90px) calc(33vw - 90px);
+      grid-template-columns: calc(33vw - 90px) calc(33vw - 90px) calc(33vw - 90px);
+}
+
+.grid span {
+  font-size: 13px;
+}
+
+.preview {
+  width: 100%;
+  height: 60px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.previewButton {
+  background-color: #424344;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.previewButton:hover {
+  outline: 2px solid #76a43d;
+}
+
+.previewButton:active {
+  outline: 3px solid #76a43d;
+}
+
 a {
   text-decoration: none;
 }
@@ -124,6 +167,27 @@ input[type=email]:not(:focus):not(:empty):invalid, input[type=password]:not(:foc
   }
   table span {
     font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .grid {
+    -ms-grid-columns: calc(50vw - 140px) calc(50vw - 140px);
+        grid-template-columns: calc(50vw - 140px) calc(50vw - 140px);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .grid {
+    -ms-grid-columns: calc(50vw - 10px) calc(50vw - 10px);
+        grid-template-columns: calc(50vw - 10px) calc(50vw - 10px);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .grid {
+    -ms-grid-columns: calc(100vw - 20px);
+        grid-template-columns: calc(100vw - 20px);
   }
 }
 

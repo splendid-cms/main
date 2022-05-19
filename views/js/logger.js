@@ -20,7 +20,7 @@ module.exports = {
 
             // If error
             if (log.err && log.req) {
-                let methodurl = log.req.method + colorette.white(log.req.url);
+                let methodurl = `${log.req.method}:${colorette.white(log.req.url)}`;
                 let out = methodurl + ' ' + log[messageKey].toLowerCase();
                 return colorette.gray(out);
             }
@@ -35,7 +35,7 @@ module.exports = {
 
             // If request
             if (log.req) {
-                let methodurl = log.req.method + colorette.white(log.req.url);
+                let methodurl = `${log.req.method}:${colorette.white(log.req.url)}`;
                 let out = methodurl + ' ' + log[messageKey].toLowerCase() + ' from ' + log.req.remoteAddress;
                 if (!config.Debug['Log Requests/Response']) return;
                 return colorette.gray(out);
