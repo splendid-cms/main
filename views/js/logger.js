@@ -2,21 +2,20 @@ const config = require(require('path').resolve("./config.json"));
 const colorette = require('colorette');
 
 module.exports = {
-    useOnlyCustomLevels: true,
-    customLevels: {
-        info: 'info',
-        fatal: 'fatal',
-        error: 'error',
-        warn: 'warn',
-        debug: 'debug',
-    },
     prettyPrint: {
-        messageKey: 'msg',
         timestampKey: false,
         // Don't log these automatically
-        ignore: 'pid,hostname,reqId,responseTime,req,res,err',
+        ignore: 'pid,hostname,reqId,responseTime,req,res,err,stack,type,code,errno,syscall,address,port,path',
         messageFormat: (log, messageKey) => {
-            saveLog(log.level, JSON.stringify(log)); // save each log with json
+
+            let level = log.level.toString()
+            .replace(10, 'trace')
+            .replace(20, 'debug')
+            .replace(30, 'info')
+            .replace(40, 'warn')
+            .replace(50, 'error')
+            .replace(60, 'fatal');
+            saveLog(level, JSON.stringify(log)); // save each log with json
 
             // If error
             if (log.err && log.req) {
@@ -49,11 +48,12 @@ module.exports = {
             level: ll => {
                 let time = ` ${getFormatTime()} `;
                 let out = colorette.inverse(time);
-                if (ll === 'debug') out = colorette.bgBlue(time);
-                if (ll === 'info') out = colorette.bgGreen(time);
-                if (ll === 'warn') out = colorette.bgYellow(time);
-                if (ll === 'error') out = colorette.bgRed(time);
-                if (ll === 'fatal') out = colorette.bgMagenta(time);
+                if (ll === 10) out = colorette.bgCyan(time);
+                if (ll === 20) out = colorette.bgBlue(time);
+                if (ll === 30) out = colorette.bgGreen(time);
+                if (ll === 40) out = colorette.bgYellow(time);
+                if (ll === 50) out = colorette.bgRed(time);
+                if (ll === 60) out = colorette.bgMagenta(time);
                 return out;
             }
         }

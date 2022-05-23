@@ -3,15 +3,14 @@ const config = require(path.resolve("./config.json"));
 const colorette = require('colorette');
 
 // Analyze any available issue through a one single function
-analyze = (host) => {
+analyze = (fastify) => {
     const icon = path.join(path.resolve('./content/media'), config.Icon);
     const size = require('image-size')(icon);
-    if ((size.width || size.height) > 48) console.log(defineMessage('WARN', 'Can not load an icon, too big size!'));
+    if ((size.width || size.height) > 48) fastify.log.error('Can not load an icon, too big size!');
     if (!require('fs').existsSync('./themes/' + config.Theme + '/main.html')) {
-        console.log(defineMessage('ERR', 'Can not find given theme, consider checking config.json!'));
+        fastify.log.error('Can not find given theme, consider checking config.json!');
         process.exit(1);
     }
-    console.log(defineMessage('OK', `Listening over at ${host}.`));
 }
 
 // Beautifies given string making
@@ -26,10 +25,22 @@ beautify = (string) => {
 defineMessage = (type, string) => {
     if (!string) return;
     string = colorette.gray(string);
-    if (type == 'OK' && config.Debug["Log In Terminal"].Info) return `${colorette.bgGreen(' OK ')} ${string}`;
-    if (type == 'WARN' && config.Debug["Log In Terminal"].Warn) return `${colorette.bgYellow(' WARN ')} ${string}`;
-    if (type == 'ERR' && config.Debug["Log In Terminal"].Error) return `${colorette.bgRed(' ERR ')} ${string}`;
-    return colorette.white.bgRed.bold(' ERR ') + colorette.gray(' Wrong type provided!');
+    let format = getFormatTime();
+    if (type == 'OK') return `${colorette.bgGreen(` ${format} `)}: ${string}`;
+    if (type == 'WARN') return `${colorette.bgYellow(` ${format} `)} ${string}`;
+    if (type == 'ERR') return `${colorette.bgRed(` ${format} `)} ${string}`;
+    return colorette.white.bgRed.bold(` ${format} `) + colorette.gray(' Wrong type provided!');
+}
+
+printProgress = (progress, text) => {
+    let minify = Math.round(progress / 4.75);
+    process.stdout.clearLine(0);
+    process.stdout.cursorTo(0);
+    process.stdout.write(
+        colorette.yellow(`${'█'.repeat(minify) + '░'.repeat(21 - minify)}`) +
+        ': ' +
+        colorette.gray(text)
+    );
 }
 
 // Get formatted time like "05/14/2022 17:48:13"
@@ -106,10 +117,9 @@ sidebarJSON = () => {
 var plugins = [];
 config.Plugins.forEach(function(element, index) {
     try {
-        plugins.push(require(path.resolve('./plugins/' + element + '/main.js')));
+        plugins.push(require(path.resolve(`./plugins/${element}/main.js`)));
     } catch (err) {
-        console.error(defineMessage('ERR', element + ' plugin: ' + err));
-        process.exit(1);
+        console.log(defineMessage('ERR', `${element} plugin: ${err}`));
     }
 });
 

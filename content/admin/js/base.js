@@ -1,7 +1,8 @@
-var menu = document.querySelectorAll('.sidebar, .sidebar *, .shadow, body');
+var sidebar = document.querySelectorAll('.sidebar, .sidebar *, .shadow, body');
 var highlight = document.querySelectorAll('.header [href], .sidebar [href]');
+
 function menu() {
-    menu.forEach(element => {
+    sidebar.forEach(element => {
         element.classList.toggle('active');
     });
 };

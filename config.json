@@ -3,7 +3,10 @@
     "Theme": "preshow",
     "Icon": "favicon.ico",
     "Port": 3000,
-    "Plugins": [],
+    "Address": "0.0.0.0",
+    "Plugins": [
+        "fs"
+    ],
     "Content": {
         "Header": {
             "Name": "/home/",

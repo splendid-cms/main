@@ -300,6 +300,7 @@ header i {
       -ms-flex-align: center;
           align-items: center;
   padding: 7px;
+  white-space: nowrap;
 }
 
 .sidebar ul li a i {

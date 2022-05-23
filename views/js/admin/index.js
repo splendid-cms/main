@@ -31,8 +31,7 @@ module.exports = function (fastify, opts, next) {
         const q = req.body;
         const invalid = '<span class="error">Invalid login provided!</spam>'
         const userData = config.Users.find(user => 
-            user.Email === q.email && 
-            hashPassword(user.Email, user.Password) === hashPassword(q.email, q['current-password'])
+            user.Email === q.email && hashPassword(user.Email, user.Password) === hashPassword(q.email, q['current-password'])
         );
         if (!userData) return res.code(401).view('./content/admin/pages/login.html', { content: invalid });
         const token = sha256(userData.Email);

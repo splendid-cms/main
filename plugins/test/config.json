@@ -1,0 +1,7 @@
+{
+    "_developer": "Splendid",
+    "_description": "Speedy plugin provides configuration for various FIGlet fonts in your startup terminal!",
+    "_version": "1.2",
+    "_comment": "A font taken from FIGlet package, list can be found here https://patorjk.com/software/taag/",
+    "Font": "Speed"
+}

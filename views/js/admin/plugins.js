@@ -42,8 +42,9 @@ module.exports = function (fastify, opts, next) {
         let index = config.Plugins.indexOf(plugin);
         if (index === -1) config.Plugins.push(plugin);
         else config.Plugins.splice(index, 1);
-        fs.writeFileSync(cfgPath, JSON.stringify(config, null, 4))
+        fs.writeFileSync(cfgPath, JSON.stringify(config, null, 4));
         res.code(301).redirect(`${config["Admin Dashboard Prefix"]}/plugins`);
+        watch();
     });
 
     // Main plugin web page

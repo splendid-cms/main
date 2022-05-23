@@ -4,21 +4,43 @@ const crypto = require('crypto');
 const path = require('path');
 const fs = require('fs');
 const config = require(path.resolve("./config.json"));
+const glob = require('tiny-glob');
+
+convertPages = async fastify => {
+    let files = await glob('./pages/**/*.md');
+    let percent = 1;
+    fs.rmSync('./cache/pages', { force: true, recursive: true });
+    files.forEach(file => {
+        let progress = Math.round(percent / files.length * 100);
+        if (config.Debug.Terminal) printProgress(progress, `Converting ${file}!`);
+        percent++
+        let data = fs.readFileSync(file, 'utf-8');
+        fastify.view(`./themes/${config.Theme}/main.html`, render(data), (err, html) => {
+            if (err) fastify.log.error(err);
+            if (!fs.existsSync('./cache/' + path.dirname(file))) fs.mkdirSync('./cache/' + path.dirname(file), { recursive: true });
+            fs.writeFileSync(path.join('./cache', file.slice(0, -3) + '.html'), html);
+        });
+    });
+    if (!config.Debug.Terminal) return;
+    process.stdout.clearLine(0);
+    process.stdout.cursorTo(0);
+    fastify.log.info(`Converted ${files.length} markdown files to HTML!`);
+}
 
 // Encrypts data using sha256
-sha256 = (data) => {
+sha256 = data => {
     return crypto.createHash('sha256').update(data, 'utf-8').digest('hex')
 }
 
 // Hashes the password with a salt
-hashPassword = () => {
-    return sha256([...Array.from(arguments), config.Salt].join(''))
+hashPassword = (...args) => {
+    return sha256([...Array.from(args), config.Salt].join(''))
 }
 
 // Gets the session info, returns error
 // if there's no session file
 // or if it's not logged in
-getSession = (token) => {
+getSession = token => {
     const filePath = path.join(sessions, token);
     return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
 }
@@ -31,7 +53,7 @@ saveSession = (token, payload) => {
 }
 
 // Hardly logs out all sessions for an account.
-eraseSession = (token) => {
+eraseSession = token => {
     const filePath = path.join(sessions, token);
     if (fs.existsSync(filePath)) return fs.rmSync(filePath, { force: true });
 }

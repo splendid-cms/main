@@ -35,15 +35,16 @@ module.exports = function (fastify, opts, next) {
         });
     });
 
-    // Plugin toggle link
+    // Theme toggle link
     fastify.get('/:theme/toggle', (req, res) => {
         let theme = req.params.theme;
         if (!theme || (!fs.existsSync(`./themes/${theme}/main.html`) && !fs.existsSync(`./themes/${theme}/main.ejs`))) {
             return res.code(404).send({statusCode: '404'});
         }
-        fs.rmdirSync('./cache/pages', { recursive: true });
         config.Theme = theme;
         fs.writeFileSync(cfgPath, JSON.stringify(config, null, 4));
+        fastify.log.warn('Theme has been changed');
+        convertPages(fastify);
         res.code(301).redirect(`${config["Admin Dashboard Prefix"]}/themes`);
     });
 

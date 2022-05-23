@@ -4,7 +4,7 @@
   "description": "Splendid is a Node.js cms based on a web framework Fastify for publishing web content on websites using Markdown, pluginsand themes.",
   "main": "views/js/app.js",
   "scripts": {
-    "start": "nodemon views/js/app.js"
+    "dev": "nodemon views/js/app.js"
   },
   "dependencies": {
     "@fastify/cookie": "^6.0.0",
@@ -16,10 +16,13 @@
     "fastify": "^3.29.0",
     "figlet": "^1.5.2",
     "image-size": "^1.0.1",
-    "nodemon": "^2.0.15",
     "pino-pretty": "^7.6.1",
     "point-of-view": "^5.2.0",
     "showdown": "^2.0.3",
-    "showdown-highlight": "^3.0.0"
+    "showdown-highlight": "^3.0.0",
+    "tiny-glob": "^0.2.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
