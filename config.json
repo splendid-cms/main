@@ -4,9 +4,7 @@
     "Icon": "favicon.ico",
     "Port": 3000,
     "Address": "0.0.0.0",
-    "Plugins": [
-        "fs"
-    ],
+    "Plugins": [],
     "Content": {
         "Header": {
             "Name": "/home/",
@@ -37,14 +35,6 @@
     "Salt": "Change this to random 16 char string",
     "Debug": {
         "Terminal": true,
-        "Log Requests/Response": true,
-        "Log In Terminal": {
-            "Info": true,
-            "Error": true,
-            "Debug": true,
-            "Fatal": true,
-            "Warn": true,
-            "Trace": true
-        }
+        "Log Requests/Response": true
     }
 }

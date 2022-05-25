@@ -1,13 +1,14 @@
 const path = require('path');
 const config = require(path.resolve("./config.json"));
 const colorette = require('colorette');
+const fs = require('fs');
 
 // Analyze any available issue through a one single function
 analyze = (fastify) => {
     const icon = path.join(path.resolve('./content/media'), config.Icon);
     const size = require('image-size')(icon);
     if ((size.width || size.height) > 48) fastify.log.error('Can not load an icon, too big size!');
-    if (!require('fs').existsSync('./themes/' + config.Theme + '/main.html')) {
+    if (!fs.existsSync(`./themes/${config.Theme}/main.html`)) {
         fastify.log.error('Can not find given theme, consider checking config.json!');
         process.exit(1);
     }
@@ -19,6 +20,13 @@ analyze = (fastify) => {
 beautify = (string) => {
     let str = string.charAt(0).toUpperCase() + string.slice(1);
     return str.replace(/-|_/g, ' ')
+}
+
+defaultEngineContext = () => {
+    return {
+        name: config.Website_name,
+        theme: config.Theme
+    }
 }
 
 // Custom message format: OK, WARN, ERR
@@ -57,8 +65,14 @@ getFormatTime = () => {
 }
 
 // What to return on 404
-notFound = () => {
-    return '404';
+notFound = err => {
+    let nf = 
+    `<div class="abs-center">
+        <h1 style="color:#76a43d;">404!</h1>
+        <p>Couldn't find the page you're looking for!
+        <a href="javascript:history.back()">Back.</a>
+    </div>`;
+    return nf;
 }
 
 // Startup function
@@ -110,7 +124,7 @@ sidebarJSON = () => {
         .replace(/"([^"]*)":{(.*)}/g, '</li><li><p>$1</p>$2</li>')
         .replace(/,/g, '');
     for (let i = 0; i < brlength; i++) sidebar = sidebar.replace(/"([^"]*)":{(.*)}/g, '<ul><li><p>$1</p>$2</ul></li>')
-    return '<ul><li>' + sidebar + '</ul>';
+    return `<ul><li>${sidebar}</ul>`;
 }
 
 // Custom plugins

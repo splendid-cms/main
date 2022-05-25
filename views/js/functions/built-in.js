@@ -7,19 +7,17 @@ const config = require(path.resolve("./config.json"));
 const glob = require('tiny-glob');
 
 convertPages = async fastify => {
-    let files = await glob('./pages/**/*.md');
+    const files = await glob('./pages/**/*.md');
     let percent = 1;
     fs.rmSync('./cache/pages', { force: true, recursive: true });
-    files.forEach(file => {
+    files.forEach(async file => {
         let progress = Math.round(percent / files.length * 100);
         if (config.Debug.Terminal) printProgress(progress, `Converting ${file}!`);
-        percent++
+        percent++;
         let data = fs.readFileSync(file, 'utf-8');
-        fastify.view(`./themes/${config.Theme}/main.html`, render(data), (err, html) => {
-            if (err) fastify.log.error(err);
-            if (!fs.existsSync('./cache/' + path.dirname(file))) fs.mkdirSync('./cache/' + path.dirname(file), { recursive: true });
-            fs.writeFileSync(path.join('./cache', file.slice(0, -3) + '.html'), html);
-        });
+        const html = await fastify.view(`./themes/${config.Theme}/main.html`, render(data));
+        if (!fs.existsSync('./cache/' + path.dirname(file))) fs.mkdirSync('./cache/' + path.dirname(file), { recursive: true });
+        fs.writeFileSync(path.join('./cache', file.slice(0, -3) + '.html'), html);
     });
     if (!config.Debug.Terminal) return;
     process.stdout.clearLine(0);

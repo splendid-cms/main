@@ -30,11 +30,11 @@ watch = () => {
     try {
         delete require.cache[require.resolve('./functions/additional.js')]
         require('./functions/additional');
+        fastify.log.info('Reload completed!');
     } catch (err) {
         fastify.log.error(err);
         return;
     }
-    fastify.log.info('Reload completed!');
 }
 
 
@@ -44,10 +44,10 @@ watch = () => {
 fastify.register(require("point-of-view"), {
     engine: { ejs: require("ejs") },
     viewExt: "html",
-    defaultContext: {
-        name: config.Website_name,
-        theme: config.Theme
-    },
+    defaultContext: defaultEngineContext(),
+    options: {
+        localsName: 'ignore' // ignore.* object for keys that may be undefined because of missing plugins
+    }
 });
 
 // Static files in the ./content/ folder
@@ -104,14 +104,36 @@ fastify.get('/favicon.ico', (req, res) => {
 // and converting it from md to html
 // using showdown.js
 // (rendering ejs file with .html ext)
-fastify.get('*', (req, res) => {
+fastify.get('*', async (req, res) => {
     let url = req.url;
     let code;
     if (url.endsWith('/')) url = url.slice(0, -1);
     if (!url) url = '/home';
     let dataPath = `./cache/pages${url}.html`;
     if (!fs.existsSync(dataPath)) code = 404;
-    res.code(code || 200).view(dataPath);
+    let stream = fs.createReadStream(dataPath);
+    await res.code(code || 200).type('text/html').send(stream);
+});
+
+fastify.setErrorHandler(function (err, req, res) {
+    let filePath = './content/admin/html/error.html';
+    let layout = `./themes/${config.Theme}/404.html`;
+    if (err.code === 'ENOENT') {
+        // If theme has 404.html render its file
+        if (fs.existsSync(layout)) {
+            res.view(layout, render(JSON.stringify(err)));
+            return;
+        };
+        // Else render basic notFound() from
+        // ./content/admin/html/error.html
+        res.view(filePath, render(notFound(JSON.stringify(err))));
+        return;
+    }
+    // Log error in a warn state
+    fastify.log.warn(err);
+    let error = `<h1 style="color:#76a43d;">${err.code}</h1>${err}`;
+    // Send error response
+    res.view(filePath, render(error));
 });
 
 // Listening and analyzing the issues.

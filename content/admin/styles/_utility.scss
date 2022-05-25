@@ -15,3 +15,10 @@ $text: #ccc;
 // Other
 $trans-1: all 0.2s ease;
 $trans-2: all 0.4s ease;
+
+// Animations
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

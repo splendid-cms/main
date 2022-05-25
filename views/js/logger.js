@@ -24,6 +24,11 @@ module.exports = {
                 return colorette.gray(out);
             }
 
+            if (log.err && log.res) {
+                let out = `${colorette.white(log.res.statusCode)} ${log[messageKey]}`;
+                return colorette.gray(out);
+            }
+
             // If response
             if (log.res) {
                 let time = Math.round(log.responseTime);

@@ -1,4 +1,5 @@
 const path = require('path');
+const colorette = require('colorette');
 const config = require(path.resolve('./config.json'));
 const login = `${config["Admin Dashboard Prefix"]}/login`;
 
@@ -41,7 +42,8 @@ module.exports = function (fastify, opts, next) {
             maxAge: 60 * 60 * 24 * 7,
             path: config["Admin Dashboard Prefix"]
         });
-        fastify.log.warn('New account has logged in! Creating new session.')
+        fastify.log.warn(`New user has logged in as ${colorette.white(userData.Email)}! Logged IP: ${req.ip}`);
+        fastify.log.warn(`If it's not you, consider deleting cache/session/ folder and changing the password in ${colorette.white('config.json')}`);
         res.code(301).redirect(config["Admin Dashboard Prefix"] + '/dashboard');
     });
 

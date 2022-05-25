@@ -12,6 +12,9 @@
     background-color: $primary-dark;
     margin: 0 10px 10px 0;
 }
+.blink {
+    animation: blink 1s linear infinite;
+}
 .error {
     color: $red;
     font-size: 14px;

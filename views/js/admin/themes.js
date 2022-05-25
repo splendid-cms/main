@@ -63,7 +63,10 @@ module.exports = function (fastify, opts, next) {
             content = notFound();
             code = 404;
         }
-        res.code(code).view(`./themes/${theme}/${main}`, render(content));
+        res.code(code).view(`./themes/${theme}/${main}`, render(content), {
+            localsName: 'ignore', // ignore.* object for keys that may be undefined because of missing plugin
+            async: true
+        });
     })
 
     // Main theme web page
