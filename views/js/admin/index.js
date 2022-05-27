@@ -20,6 +20,8 @@ module.exports = function (fastify, opts, next) {
         prefix: '/plugins'
     }).register(require('./themes'), {
         prefix: '/themes'
+    }).register(require('./pages'), {
+        prefix: '/pages'
     });
 
     // Login page
@@ -27,8 +29,7 @@ module.exports = function (fastify, opts, next) {
         res.code(200).view('./content/admin/pages/login.html', {
             content: ''
         });
-    });
-    fastify.post('/login', (req, res) => {
+    }).post('/login', (req, res) => {
         const q = req.body;
         const invalid = '<span class="error">Invalid login provided!</spam>'
         const userData = config.Users.find(user => 

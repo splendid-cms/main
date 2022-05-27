@@ -105,7 +105,7 @@ fastify.get('/favicon.ico', (req, res) => {
 // using showdown.js
 // (rendering ejs file with .html ext)
 fastify.get('*', async (req, res) => {
-    let url = req.url;
+    let url = decodeURI(req.url);
     let code;
     if (url.endsWith('/')) url = url.slice(0, -1);
     if (!url) url = '/home';

@@ -1,0 +1,38 @@
+// Utilities
+@import "./utility";
+
+.page-editor {
+    width: 100%;
+    * {
+        box-sizing: border-box;
+        background-color: $primary-dark;
+        border: 1px solid #FFFFFF0A;
+        font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
+        font-size: 15px;
+    }
+    #editor {
+        width: inherit;
+        padding: 10px;
+        outline: none;
+        resize: none;
+        color: $text;
+    }
+    .changes {
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        color: $text;
+        transition: none;
+        margin-top: 3px;
+        padding: 10px;
+        width: inherit;
+        justify-content: space-between;
+        align-items: center;
+        &:hover {
+            outline: 2px solid $green-1
+        }
+        &:active {
+            outline: 3px solid $green-1
+        }
+    }
+}

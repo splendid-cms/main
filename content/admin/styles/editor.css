@@ -1,0 +1,61 @@
+@-webkit-keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.page-editor {
+  width: 100%;
+}
+
+.page-editor * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #353637;
+  border: 1px solid #FFFFFF0A;
+  font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.page-editor #editor {
+  width: inherit;
+  padding: 10px;
+  outline: none;
+  resize: none;
+  color: #ccc;
+}
+
+.page-editor .changes {
+  border: none;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  color: #ccc;
+  -webkit-transition: none;
+  transition: none;
+  margin-top: 3px;
+  padding: 10px;
+  width: inherit;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.page-editor .changes:hover {
+  outline: 2px solid #76a43d;
+}
+
+.page-editor .changes:active {
+  outline: 3px solid #76a43d;
+}
+/*# sourceMappingURL=editor.css.map */

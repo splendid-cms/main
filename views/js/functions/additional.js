@@ -25,6 +25,7 @@ beautify = (string) => {
 defaultEngineContext = () => {
     return {
         name: config.Website_name,
+        prefix: config["Admin Dashboard Prefix"],
         theme: config.Theme
     }
 }
@@ -52,8 +53,7 @@ printProgress = (progress, text) => {
 }
 
 // Get formatted time like "05/14/2022 17:48:13"
-getFormatTime = () => {
-    let now = new Date();
+getFormatTime = (now = new Date()) => {
     return `${
         now.getDate().toString().padStart(2, '0')}/${
         (now.getMonth()+1).toString().padStart(2, '0')}/${
