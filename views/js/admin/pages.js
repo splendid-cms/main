@@ -26,37 +26,11 @@ module.exports = function (fastify, opts, next) {
         let filePath = `./pages/${page}.md`
         if (!page || !fs.existsSync(filePath)) return res.code(404).send({statusCode: 404}); // Soon
         let content = fs.readFileSync(filePath, 'utf-8');
-        content = 
-        `
-        <form
-            method="POST"
-            action=""
-            onsubmit="disableBeforeUnload();"
-            class="page-editor"
-            target="_blank"
-        >
-            <textarea
-                name="text"
-                id="editor"
-                onchange="enableBeforeUnload();"
-                onkeyup="enableBeforeUnload();"
-            >${content}</textarea>
-            <button
-                type="submit"
-                class="changes"
-                formaction="preview"
-            >Preview ${page} webpage</button>
-            <button
-                type="submit"
-                class="changes"
-            >Save</button>
-        </form>
-
-        <link rel="stylesheet" href="/content/admin/styles/editor.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet">
-        <script src="/content/admin/js/editor.js"></script>`;
+        content = fastify.view('./content/admin/pages/editor.html', {
+		content: fs.readFileSync(filePath, 'utf-8'),
+		page: page
+	});
+         
         res.code(200).view(`./themes/${config.Theme}/main.html`, {
             content: content,
             header: headerJSON(),
