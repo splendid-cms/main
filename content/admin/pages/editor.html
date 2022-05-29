@@ -1,4 +1,12 @@
 <form method="POST" action="" onsubmit="disableBeforeUnload();" class="page-editor" target="_blank">
+    <p>
+        <button class="changes">
+            Editor
+	</button>
+	<button class="changes">
+            Preview           
+        </button>
+    </p>
     <textarea name="text" id="editor" onchange="enableBeforeUnload();" onkeyup="enableBeforeUnload();">
         <%= content %>
     </textarea>

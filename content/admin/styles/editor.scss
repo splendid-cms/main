@@ -35,4 +35,23 @@
             outline: 3px solid $green-1
         }
     }
+
+    .button {
+	border: none;
+        cursor: pointer;
+        display: inline-flex;
+        color: $text;
+        transition: none;
+        margin-top: 3px;
+        padding: 10px;
+        width: inherit;
+        justify-content: space-between;
+        align-items: center;
+        &:hover {
+	    color: lighten($text, 5%);
+        }
+        &:active {
+            color: lighten($text, 10%);
+        }
+    }
 }

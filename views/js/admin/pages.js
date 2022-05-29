@@ -20,13 +20,13 @@ module.exports = function (fastify, opts, next) {
 	});
 
     // Modify the file
-    fastify.get('/modify', (req, res) => {
+    fastify.get('/modify', async(req, res) => {
         let page = decodeURI(req.query.path);
-        if (page === '/') page = '/home'
+        if (page === '/') page = 'home'
         let filePath = `./pages/${page}.md`
         if (!page || !fs.existsSync(filePath)) return res.code(404).send({statusCode: 404}); // Soon
         let content = fs.readFileSync(filePath, 'utf-8');
-        content = fastify.view('./content/admin/pages/editor.html', {
+        content = await fastify.view('./content/admin/pages/editor.html', {
 		content: fs.readFileSync(filePath, 'utf-8'),
 		page: page
 	});
