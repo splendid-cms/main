@@ -10,7 +10,7 @@
         font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
         font-size: 15px;
     }
-    #editor {
+    .textarea {
         width: inherit;
         padding: 10px;
         outline: none;
@@ -48,7 +48,7 @@
         justify-content: space-between;
         align-items: center;
         &:hover {
-	    color: lighten($text, 5%);
+	        color: lighten($text, 5%);
         }
         &:active {
             color: lighten($text, 10%);

@@ -13,3 +13,17 @@ textarea.oninput = function() {
     textarea.style.height = "1px";
     textarea.style.height = (25 + textarea.scrollHeight) + "px"
 };
+
+function switchToEditor() {
+    document.getElementById("editor").style.display = "block";
+    document.getElementById("preview").style.display = "none";
+    document.getElementById("editor-button").classList.add("active");
+    document.getElementById("preview-button").classList.remove("active");
+}
+
+function switchToPreview() {
+    document.getElementById("editor").style.display = "none";
+    document.getElementById("preview").style.display = "block";
+    document.getElementById("editor-button").classList.remove("active");
+    document.getElementById("preview-button").classList.add("active");
+}

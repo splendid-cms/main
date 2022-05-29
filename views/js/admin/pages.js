@@ -52,6 +52,12 @@ module.exports = function (fastify, opts, next) {
         res.code(200).view(`./themes/${config.Theme}/main.html`, render(text));
     });
 
+    fastify.post('/previewText', (req, res) => {
+        let text = req.body.text;
+        if (!text) return res.send({ statusCode: 404 });
+        res.code(200).view(`./themes/${config.Theme}/main.html`, render(text));
+    });
+
     fastify.get('/create', (req, res) => {
         res.code(200).view('./content/admin/html/main.html', {
             url: "create-page"

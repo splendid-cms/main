@@ -1,24 +1,45 @@
-<form method="POST" action="" onsubmit="disableBeforeUnload();" class="page-editor" target="_blank">
+<div class="page-editor">
     <p>
-        <button class="changes">
+        <button class="button" id="editor-button" onclick="switchToEditor();">
             Editor
-	</button>
-	<button class="changes">
-            Preview           
+        </button>
+        <button class="button" id="preview-button" onclick="switchToPreview();">
+            Preview
         </button>
     </p>
-    <textarea name="text" id="editor" onchange="enableBeforeUnload();" onkeyup="enableBeforeUnload();">
+    <form
+        method="POST"
+        action=""
+        onsubmit="disableBeforeUnload();"
+        class="page-editor"
+    >
+        <textarea
+            name="text"
+            id="editor"
+            class="textarea"
+            onchange="enableBeforeUnload();"
+            onkeyup="enableBeforeUnload();"
+        >
         <%= content %>
-    </textarea>
-    <button type="submit" class="changes" formaction="preview">
-        Preview <%= page %> webpage
-    </button>
-    <button type="submit" class="changes">
-        Save
-    </button>
-</form>
-<link rel="stylesheet" href="/content/admin/styles/editor.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap" rel="stylesheet">
+    </textarea
+        >
+        <textarea
+            name="preview-text"
+            id="preview"
+            class="textarea"
+            style="display: none"
+        ></textarea>
+        <button type="submit" class="changes" formaction="preview">
+            Preview <%= page %> webpage
+        </button>
+        <button type="submit" class="changes">Save</button>
+    </form>
+</div>
+<link rel="stylesheet" href="/content/admin/styles/editor.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
+    rel="stylesheet"
+/>
 <script src="/content/admin/js/editor.js"></script>
