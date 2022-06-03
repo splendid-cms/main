@@ -4,6 +4,7 @@ const cfgPath = path.resolve("./config.json");
 const config = require(cfgPath);
 const glob = require("tiny-glob");
 const showdown = require("showdown");
+const { render } = require("ejs");
 const converter = new showdown.Converter(showdownConverter());
 
 module.exports = function (fastify, opts, next) {
@@ -30,7 +31,6 @@ module.exports = function (fastify, opts, next) {
             content = await fastify.view("./content/admin/pages/editor.html", {
                 content: fs.readFileSync(filePath, "utf-8"),
                 page: page,
-                readonly: false,
             });
 
             res.code(200).view(`./themes/${config.Theme}/main.html`, {
@@ -49,22 +49,11 @@ module.exports = function (fastify, opts, next) {
             res.code(301).redirect(config["Admin Dashboard Prefix"] + "/pages");
         });
 
-    fastify.post("/quickpreview", async (req, res) => {
+    fastify.post("/previewText", async (req, res) => {
         let text = req.body.text;
-        let page = req.body.page;
-        if (!text || !page) return res.send({ statusCode: 404 });
-        let content = await fastify.view("./content/admin/pages/editor.html", {
-            content: text,
-            page: page,
-            readonly: true,
-        });
+        if (!text) return res.send({ statusCode: 400 });
 
-        res.code(200).view(`./themes/${config.Theme}/main.html`, {
-            content: content,
-            header: headerJSON(),
-            sidebar: sidebarJSON(),
-            footer: converter.makeHtml(config.Content.Footer),
-        });
+        res.code(200).send(render(text));
     });
 
     fastify.post("/preview", (req, res) => {

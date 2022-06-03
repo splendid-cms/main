@@ -1,26 +1,30 @@
 <div class="page-editor">
-    
+    <p>
+        <button class="button" id="editor-button" onclick="switchToEditor()">
+            Editor
+        </button>
+        <button class="button" id="preview-button" onclick="switchToPreview()">
+            Preview
+        </button>
+    </p>
+
     <form
         method="POST"
         action=""
         onsubmit="disableBeforeUnload();"
         class="page-editor"
     >
-        <p>
-            <button class="button" id="editor-button" formaction="modify">Editor</button>
-            <button class="button" id="preview-button" formaction="quickpreview">Preview</button>
-        </p>
         <textarea
             name="text"
             id="editor"
             class="textarea"
             onchange="enableBeforeUnload();"
             onkeyup="enableBeforeUnload();"
-            readonly=<%= readonly %>
         >
             <%= content %>
         </textarea>
-        <input type="hidden" name="page" value=<%= page %>>
+        <textarea name="preview" id="preview" class="textarea" readonly="true">
+        </textarea>
         <button type="submit" class="changes" formaction="preview">
             Preview <%= page %> webpage
         </button>

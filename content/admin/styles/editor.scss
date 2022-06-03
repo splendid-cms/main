@@ -54,4 +54,8 @@
             color: lighten($text, 10%);
         }
     }
+
+    #preview {
+        display: none;
+    }
 }

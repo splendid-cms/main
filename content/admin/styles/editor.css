@@ -86,4 +86,8 @@
 .page-editor .button:active {
   color: #e6e6e6;
 }
+
+.page-editor #preview {
+  display: none;
+}
 /*# sourceMappingURL=editor.css.map */

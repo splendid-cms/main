@@ -15,3 +15,18 @@ textarea.oninput = function() {
 };
 
 
+async function switchToPreview() {
+    document.getElementById("editor").style.display = "none";
+    document.getElementById("preview").style.display = "block";
+    document.getElementById('preview').innerHTML = await fetch('/splendid/pages/previewText', {
+        method: 'POST',
+        body: {
+          text: document.getElementById('editor').value
+        }
+      }).content;
+}
+
+function switchToEditor() {
+    document.getElementById("editor").style.display = "block";
+    document.getElementById("preview").style.display = "none";
+}
