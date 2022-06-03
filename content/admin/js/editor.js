@@ -8,22 +8,29 @@ function disableBeforeUnload() {
     window.onbeforeunload = null;
 }
 textarea.style.height = "1px";
-textarea.style.height = (25 + textarea.scrollHeight) + "px"
-textarea.oninput = function() {
+textarea.style.height = 25 + textarea.scrollHeight + "px";
+document.getElementById("preview").style.height = "1px";
+document.getElementById("preview").style.height = 25 + textarea.scrollHeight + "px";
+textarea.oninput = function () {
     textarea.style.height = "1px";
-    textarea.style.height = (25 + textarea.scrollHeight) + "px"
+    textarea.style.height = 25 + textarea.scrollHeight + "px";
+    document.getElementById("preview").style.height = "1px";
+    document.getElementById("preview").style.height = 25 + textarea.scrollHeight + "px";
 };
-
 
 async function switchToPreview() {
     document.getElementById("editor").style.display = "none";
     document.getElementById("preview").style.display = "block";
-    document.getElementById('preview').innerHTML = await fetch('/splendid/pages/previewText', {
-        method: 'POST',
-        body: {
-          text: document.getElementById('editor').value
-        }
-      }).content;
+
+    let res = await fetch("/splendid/pages/previewText", {
+        // replace /splendid with whatever the api thing will be
+        method: "POST",
+        body: JSON.stringify({
+            text: document.getElementById("editor").value,
+        }),
+    });
+    let jsonres = await res.json()
+    document.getElementById("preview").innerHTML = jsonres.content;
 }
 
 function switchToEditor() {

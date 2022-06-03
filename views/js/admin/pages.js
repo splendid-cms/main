@@ -4,7 +4,6 @@ const cfgPath = path.resolve("./config.json");
 const config = require(cfgPath);
 const glob = require("tiny-glob");
 const showdown = require("showdown");
-const { render } = require("ejs");
 const converter = new showdown.Converter(showdownConverter());
 
 module.exports = function (fastify, opts, next) {
@@ -50,10 +49,10 @@ module.exports = function (fastify, opts, next) {
         });
 
     fastify.post("/previewText", async (req, res) => {
-        let text = req.body.text;
-        if (!text) return res.send({ statusCode: 400 });
+        let text = JSON.parse(req.body).text;
+        if (!text) return res.code(400).send({ statusCode: 400, reason: "Missing text" });
 
-        res.code(200).send(render(text));
+        res.code(200).send({ content: render(text).content });
     });
 
     fastify.post("/preview", (req, res) => {

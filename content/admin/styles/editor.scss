@@ -3,7 +3,7 @@
 
 .page-editor {
     width: 100%;
-    * {
+    * { 
         box-sizing: border-box;
         background-color: $primary-dark;
         border: 1px solid #FFFFFF0A;
@@ -57,5 +57,8 @@
 
     #preview {
         display: none;
+        * {
+            border: unset !important;
+        }
     }
 }

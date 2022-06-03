@@ -20,11 +20,8 @@
             class="textarea"
             onchange="enableBeforeUnload();"
             onkeyup="enableBeforeUnload();"
-        >
-            <%= content %>
-        </textarea>
-        <textarea name="preview" id="preview" class="textarea" readonly="true">
-        </textarea>
+        ><%= content %></textarea>
+        <div name="preview" id="preview" class="textarea"></div>
         <button type="submit" class="changes" formaction="preview">
             Preview <%= page %> webpage
         </button>

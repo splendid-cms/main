@@ -90,4 +90,8 @@
 .page-editor #preview {
   display: none;
 }
+
+.page-editor #preview * {
+  border: unset !important;
+}
 /*# sourceMappingURL=editor.css.map */
