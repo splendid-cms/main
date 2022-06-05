@@ -1,38 +1,6 @@
-<div class="page-editor">
-    <p>
-        <button class="button" id="editor-button" onclick="switchToEditor()">
-            Editor
-        </button>
-        <button class="button" id="preview-button" onclick="switchToPreview()">
-            Preview
-        </button>
-    </p>
-
-    <form
-        method="POST"
-        action=""
-        onsubmit="disableBeforeUnload();"
-        class="page-editor"
-    >
-        <textarea
-            name="text"
-            id="editor"
-            class="textarea"
-            onchange="enableBeforeUnload();"
-            onkeyup="enableBeforeUnload();"
-        ><%= content %></textarea>
-        <div name="preview" id="preview" class="textarea"></div>
-        <button type="submit" class="changes" formaction="preview">
-            Preview <%= page %> webpage
-        </button>
-        <button type="submit" class="changes">Save</button>
-    </form>
-</div>
-<link rel="stylesheet" href="/content/admin/styles/editor.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link
-    href="https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap"
-    rel="stylesheet"
-/>
+<link rel="stylesheet" href="/content/admin/styles/editor.css">
+<script src="https://unpkg.com/easymde/dist/easymde.min.js"></script>
+<script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
+<textarea><%= content %></textarea>
 <script src="/content/admin/js/editor.js"></script>

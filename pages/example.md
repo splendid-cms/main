@@ -6,8 +6,8 @@ This is some basic, sample markdown.
 
  * Unordered lists, and:
   1. One
-  1. Two
-  1. Three
+  2. Two
+  3. Three
  * More
 
 > Blockquote
@@ -16,13 +16,15 @@ And **bold**, *italics*, and even *italics and later **bold***. Even ~~strikethr
 
 And code highlighting:
 
-\`\`\`js
-var foo = 'bar';
+```js
+// x is an object
+let x = new Number(500);
 
-function baz(s) {
-   return foo + ':' + s;
-}
-\`\`\`
+// y is an object
+let y = new Number(500);
+
+document.getElementById("demo").innerHTML = (x==y);
+```
 
 Or inline code like `var foo = 'bar';`.
 
@@ -30,4 +32,4 @@ Or an image of bears
 
 ![bears](http://placebear.com/200/200)
 
-The end ...
+The end...

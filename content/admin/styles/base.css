@@ -1,12 +1,12 @@
 @-webkit-keyframes blink {
   50% {
-    opacity: 0;
+    background-color: transparent;
   }
 }
 
 @keyframes blink {
   50% {
-    opacity: 0;
+    background-color: transparent;
   }
 }
 
@@ -229,6 +229,7 @@ input[type=email]:not(:focus):not(:empty):invalid, input[type=password]:not(:foc
   padding: 0;
   font-family: "Poppins", "Segoe UI", Helvetica, sans-serif;
   color: #ccc;
+  outline: 0;
 }
 
 body {

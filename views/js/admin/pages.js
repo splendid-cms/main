@@ -3,8 +3,6 @@ const path = require("path");
 const cfgPath = path.resolve("./config.json");
 const config = require(cfgPath);
 const glob = require("tiny-glob");
-const showdown = require("showdown");
-const converter = new showdown.Converter(showdownConverter());
 
 module.exports = function (fastify, opts, next) {
     // Removing cache control for each request except main page
@@ -25,18 +23,11 @@ module.exports = function (fastify, opts, next) {
             if (page === "/") page = "home";
             let filePath = `./pages/${page}.md`;
             if (!page || !fs.existsSync(filePath))
-                return res.code(404).send({ statusCode: 404 }); // Soon
-            let content = fs.readFileSync(filePath, "utf-8");
-            content = await fastify.view("./content/admin/pages/editor.html", {
+                return res.callNotFound();
+            res.code(200).view('./content/admin/html/main.html', {
                 content: fs.readFileSync(filePath, "utf-8"),
-                page: page,
-            });
-
-            res.code(200).view(`./themes/${config.Theme}/main.html`, {
-                content: content,
-                header: headerJSON(),
-                sidebar: sidebarJSON(),
-                footer: converter.makeHtml(config.Content.Footer),
+                url: 'editor',
+                page: page
             });
         })
         .post("/modify", (req, res) => {
@@ -45,15 +36,8 @@ module.exports = function (fastify, opts, next) {
             if (!text || !name) return res.send({ statusCode: 404 });
             fs.writeFileSync(`pages/${name}.md`, text);
             convertPages(fastify);
-            res.code(301).redirect(config["Admin Dashboard Prefix"] + "/pages");
+            res.code(204).redirect(config["Admin Dashboard Prefix"] + "/pages");
         });
-
-    fastify.post("/previewText", async (req, res) => {
-        let text = JSON.parse(req.body).text;
-        if (!text) return res.code(400).send({ statusCode: 400, reason: "Missing text" });
-
-        res.code(200).send({ content: render(text).content });
-    });
 
     fastify.post("/preview", (req, res) => {
         let text = req.body.text;
