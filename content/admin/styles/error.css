@@ -1,12 +1,12 @@
 @-webkit-keyframes blink {
   50% {
-    opacity: 0;
+    background-color: transparent;
   }
 }
 
 @keyframes blink {
   50% {
-    opacity: 0;
+    background-color: transparent;
   }
 }
 

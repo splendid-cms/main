@@ -31,7 +31,7 @@ module.exports = function (fastify, opts, next) {
         });
     }).post('/login', (req, res) => {
         const q = req.body;
-        const invalid = '<span class="error">Invalid login provided!</spam>'
+        const invalid = '<span class="error">Invalid login provided!</span>'
         const userData = config.Users.find(user => 
             user.Email === q.email && hashPassword(user.Email, user.Password) === hashPassword(q.email, q['current-password'])
         );
