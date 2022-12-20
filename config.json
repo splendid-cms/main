@@ -1,40 +1,22 @@
 {
-    "Website_name": "Splendid",
+    "Website name": "Splendid",
     "Theme": "default",
     "Icon": "favicon.ico",
     "Port": 3000,
     "Address": "0.0.0.0",
-    "Plugins": [],
-    "Content": {
-        "Header": {
-            "Name": "/home/",
-            "Github": "https://github.com/splendid-cms"
-        },
-        "Sidebar": {
-            "Page Name": "/link-1/",
-            "Category": {
-                "Page Name": "/link-2/",
-                "Subcategory": {
-                    "Page Name": "/link-3/"
-                }
-            }
-        },
-        "Footer": "Footer text"
-    },
-    "Admin Dashboard Prefix": "/splendid",
+    "Admin dashboard prefix": "spl-panel",
     "Users": [
         {
             "ID": 1,
             "Name": "Your name",
-            "Email": "john.doe@gmail.com",
-            "Password": "johnathan789890",
-            "_Email": "Your email address",
-            "_Password": "Password"
+            "Password": "johnathan789890"
         }
     ],
-    "Salt": "Change this to random 16 char string",
-    "Debug": {
-        "Terminal": true,
-        "Log Requests/Response": true
+    "Auth": {
+        "Secret key": "Change_this_to_random_16+_char_string",
+        "Expires in": "1h"
+    },
+    "Experimental": {
+        "Development environment": true
     }
 }
