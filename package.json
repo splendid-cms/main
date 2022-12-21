@@ -4,7 +4,7 @@
   "scripts": {
     "prebuild": "rimraf dist src/client/global/.next rimraf src/client/panel/.next",
     "build": "nest build && cd src/client/global && next build && cd ../panel && next build && cd ../../..",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
     "start": "npm run build && node .",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -18,10 +18,11 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@fastify/cookie": "^8.3.0",
     "@mantine/carousel": "^5.8.0",
     "@mantine/core": "^5.8.0",
     "@mantine/dates": "^5.8.0",
-    "@mantine/form": "^5.8.0",
+    "@mantine/form": "^5.9.5",
     "@mantine/hooks": "^5.8.0",
     "@mantine/next": "^5.8.0",
     "@mantine/notifications": "^5.8.0",

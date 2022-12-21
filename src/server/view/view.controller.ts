@@ -1,20 +1,29 @@
-import { Controller, Get, Res, Req } from "@nestjs/common";
 import type { FastifyRequest, FastifyReply } from "fastify";
-import type { RequestHandler } from "next/dist/server/next";
-import config from "config.json";
-
+import { Controller, Get, Res, Req, UseGuards } from "@nestjs/common";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { ViewService } from "./view.service";
+import config from "config.json";
 
 @Controller("/")
 export class ViewController {
   constructor(private viewService: ViewService) {}
 
-  @Get("*")
+  @Get([
+    config["Admin dashboard prefix"] + "/auth/*",
+    config["Admin dashboard prefix"] + "/_next/*",
+  ])
+  public async login(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+    this.viewService.server.panel.getRequestHandler()(req.raw, res.raw);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(config["Admin dashboard prefix"] + "/*")
   public async panel(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-    const { server } = this.viewService;
-    let handle: RequestHandler = server.global.getRequestHandler();
-    if (req.url.startsWith("/" + config["Admin dashboard prefix"]))
-      handle = server.panel.getRequestHandler();
-    handle(req.raw, res.raw);
+    this.viewService.server.panel.getRequestHandler()(req.raw, res.raw);
+  }
+
+  @Get("*")
+  public async global(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
+    this.viewService.server.global.getRequestHandler()(req.raw, res.raw);
   }
 }

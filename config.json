@@ -4,7 +4,7 @@
     "Icon": "favicon.ico",
     "Port": 3000,
     "Address": "0.0.0.0",
-    "Admin dashboard prefix": "spl-panel",
+    "Admin dashboard prefix": "splendid",
     "Users": [
         {
             "ID": 1,
@@ -17,6 +17,6 @@
         "Expires in": "1h"
     },
     "Experimental": {
-        "Development environment": true
+        "Development environment": false
     }
 }

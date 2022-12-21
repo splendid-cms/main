@@ -656,6 +656,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/cookie@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@fastify/cookie@npm:8.3.0"
+  dependencies:
+    cookie: ^0.5.0
+    fastify-plugin: ^4.0.0
+  checksum: d5dfb5c85d4ae02188aad63c8cf055d3b904287bc2750964ee0b8589c5b5ae32850e8fc9456a8830e9f4e9f24d5059e54dac084835d6ef4cbba7fa4b9c4673b3
+  languageName: node
+  linkType: hard
+
 "@fastify/cors@npm:8.1.1":
   version: 8.1.1
   resolution: "@fastify/cors@npm:8.1.1"
@@ -1126,15 +1136,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/form@npm:^5.8.0":
-  version: 5.8.3
-  resolution: "@mantine/form@npm:5.8.3"
+"@mantine/form@npm:^5.9.5":
+  version: 5.9.5
+  resolution: "@mantine/form@npm:5.9.5"
   dependencies:
     fast-deep-equal: ^3.1.3
     klona: ^2.0.5
   peerDependencies:
     react: ">=16.8.0"
-  checksum: e7dccf65fa3d2f2b5cfabd8ee57482cba3ebffb0ad8b39dd3e66d949f54036bb3ecdb2c32a70094b9f840245cd643616dd49a74583ba81a439e48ffae4bf4c04
+  checksum: 1962f8c694974f374b08894fef148850bbe120add06b04b1adb17128b66335c1ae38c20cd4347e36ae5029df4b72c2fd7e717e5b709712cbfec9e7b625d27842
   languageName: node
   linkType: hard
 
@@ -7659,6 +7669,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"root-workspace-0b6124@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "root-workspace-0b6124@workspace:."
+  dependencies:
+    "@emotion/react": ^11.10.5
+    "@fastify/cookie": ^8.3.0
+    "@mantine/carousel": ^5.8.0
+    "@mantine/core": ^5.8.0
+    "@mantine/dates": ^5.8.0
+    "@mantine/form": ^5.9.5
+    "@mantine/hooks": ^5.8.0
+    "@mantine/next": ^5.8.0
+    "@mantine/notifications": ^5.8.0
+    "@mantine/prism": ^5.8.0
+    "@mdx-js/loader": ^2.1.5
+    "@mdx-js/react": ^2.1.5
+    "@nestjs/cli": ^9.0.0
+    "@nestjs/common": ^9.0.0
+    "@nestjs/core": ^9.0.0
+    "@nestjs/jwt": ^9.0.0
+    "@nestjs/passport": ^9.0.0
+    "@nestjs/platform-express": ^9.0.0
+    "@nestjs/platform-fastify": ^9.2.0
+    "@nestjs/schematics": ^9.0.0
+    "@nestjs/testing": ^9.0.0
+    "@next/mdx": ^13.0.3
+    "@types/express": ^4.17.13
+    "@types/jest": 28.1.8
+    "@types/node": ^16.0.0
+    "@types/passport-jwt": ^3.0.7
+    "@types/passport-local": ^1.0.34
+    "@types/react": ^18.0.25
+    "@types/react-dom": ^18.0.9
+    "@types/supertest": ^2.0.11
+    cookies-next: ^2.1.1
+    fastify: ^4.10.0
+    jest: 28.1.3
+    next: ^13.0.3
+    passport: ^0.6.0
+    passport-jwt: ^4.0.0
+    passport-local: ^1.0.0
+    prettier: ^2.8.1
+    react: ^18.2.0
+    react-dom: ^18.2.0
+    reflect-metadata: ^0.1.13
+    rimraf: ^3.0.2
+    rxjs: ^7.2.0
+    source-map-support: ^0.5.20
+    supertest: ^6.1.3
+    ts-jest: 28.0.8
+    ts-loader: ^9.2.3
+    ts-node: ^10.0.0
+    typescript: ^4.7.4
+  languageName: unknown
+  linkType: soft
+
 "run-async@npm:^2.4.0":
   version: 2.4.1
   resolution: "run-async@npm:2.4.1"
@@ -8008,61 +8074,6 @@ __metadata:
   checksum: 202e97d7ca1ba0758a0aa4fe226ff98142073bcceeff2da3aad037968878552c3bbce3b3231970025375bbba5aee00c5b8206eda408da837ab2dc9c0f26be990
   languageName: node
   linkType: hard
-
-"splendid-1.0@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "splendid-1.0@workspace:."
-  dependencies:
-    "@emotion/react": ^11.10.5
-    "@mantine/carousel": ^5.8.0
-    "@mantine/core": ^5.8.0
-    "@mantine/dates": ^5.8.0
-    "@mantine/form": ^5.8.0
-    "@mantine/hooks": ^5.8.0
-    "@mantine/next": ^5.8.0
-    "@mantine/notifications": ^5.8.0
-    "@mantine/prism": ^5.8.0
-    "@mdx-js/loader": ^2.1.5
-    "@mdx-js/react": ^2.1.5
-    "@nestjs/cli": ^9.0.0
-    "@nestjs/common": ^9.0.0
-    "@nestjs/core": ^9.0.0
-    "@nestjs/jwt": ^9.0.0
-    "@nestjs/passport": ^9.0.0
-    "@nestjs/platform-express": ^9.0.0
-    "@nestjs/platform-fastify": ^9.2.0
-    "@nestjs/schematics": ^9.0.0
-    "@nestjs/testing": ^9.0.0
-    "@next/mdx": ^13.0.3
-    "@types/express": ^4.17.13
-    "@types/jest": 28.1.8
-    "@types/node": ^16.0.0
-    "@types/passport-jwt": ^3.0.7
-    "@types/passport-local": ^1.0.34
-    "@types/react": ^18.0.25
-    "@types/react-dom": ^18.0.9
-    "@types/supertest": ^2.0.11
-    cookies-next: ^2.1.1
-    fastify: ^4.10.0
-    jest: 28.1.3
-    next: ^13.0.3
-    passport: ^0.6.0
-    passport-jwt: ^4.0.0
-    passport-local: ^1.0.0
-    prettier: ^2.8.1
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    reflect-metadata: ^0.1.13
-    rimraf: ^3.0.2
-    rxjs: ^7.2.0
-    source-map-support: ^0.5.20
-    supertest: ^6.1.3
-    ts-jest: 28.0.8
-    ts-loader: ^9.2.3
-    ts-node: ^10.0.0
-    typescript: ^4.7.4
-  languageName: unknown
-  linkType: soft
 
 "split2@npm:^4.0.0":
   version: 4.1.0

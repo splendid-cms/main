@@ -12,12 +12,12 @@ export class ViewService implements OnModuleInit {
     try {
       this.server = {
         global: next({ dir: "./src/client/global", dev: this.development }),
-        panel: next({ dir: "./src/client/panel", dev: this.development })
+        panel: next({ dir: "./src/client/panel", dev: this.development }),
       };
       await this.server.global.prepare();
       await this.server.panel.prepare();
     } catch (error) {
       console.error(error);
-    };
-  };
-};
+    }
+  }
+}

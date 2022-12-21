@@ -7,7 +7,9 @@ import config from "config.json";
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (request) => request?.cookies?.access_token
+      ]),
       ignoreExpiration: false,
       secretOrKey: config.Auth["Secret key"],
     });
