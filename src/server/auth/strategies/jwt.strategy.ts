@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
-import config from "config.json";
+import { splendid } from "package.json";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -11,7 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         (request) => request?.cookies?.access_token
       ]),
       ignoreExpiration: false,
-      secretOrKey: config.Auth["Secret key"],
+      secretOrKey: splendid.auth.secretKey
     });
   }
 

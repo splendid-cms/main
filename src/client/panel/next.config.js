@@ -1,9 +1,8 @@
-const config = require('../../../config.json');
-const { getCookie } = require('cookies-next');
+const { splendid } = require('package.json');
 
 /**
  * @type {import('next').NextConfig}
  */
 module.exports = {
-    basePath: '/' + config['Admin dashboard prefix'],
+    basePath: '/' + splendid.adminDashboardPrefix,
 }

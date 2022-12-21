@@ -1,4 +1,26 @@
 {
+  "splendid": {
+    "websiteName": "Splendid",
+    "theme": "default",
+    "icon": "favicon.ico",
+    "port": 3005,
+    "address": "0.0.0.0",
+    "adminDashboardPrefix": "splendid",
+    "users": [
+      {
+        "id": 1,
+        "name": "Your name",
+        "password": "johnathan789890"
+      }
+    ],
+    "auth": {
+      "secretKey": "Change_this_to_random_16+_char_string",
+      "expiresIn": "1h"
+    },
+    "experimental": {
+      "developmentEnvironment": false
+    }
+  },
   "license": "MIT",
   "main": "dist/src/server/main.js",
   "scripts": {

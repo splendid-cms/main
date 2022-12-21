@@ -5,15 +5,15 @@ import { UsersModule } from "../users/users.module";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
-import config from "config.json";
+import { splendid } from "package.json";
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secret: config.Auth["Secret key"],
-      signOptions: { expiresIn: config.Auth["Expires in"] },
+      secret: splendid.auth.secretKey,
+      signOptions: { expiresIn: splendid.auth.expiresIn },
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
