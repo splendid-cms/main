@@ -1,4 +1,4 @@
-const { splendid } = require('package.json');
+const { splendid } = require('../../../package.json');
 
 /**
  * @type {import('next').NextConfig}
