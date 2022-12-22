@@ -1,0 +1,35 @@
+import { useEffect } from "react";
+import { NextRouter, useRouter } from "next/router";
+import {
+    startNavigationProgress,
+    completeNavigationProgress,
+    NavigationProgress,
+} from "@mantine/nprogress";
+
+export const RouterTransition = (): JSX.Element => {
+    const router: NextRouter = useRouter();
+
+    useEffect(() => {
+        const handleStart = (url: string): void =>
+            url !== router.asPath && startNavigationProgress();
+        const handleComplete = (): void => completeNavigationProgress();
+
+        router.events.on("routeChangeStart", handleStart);
+        router.events.on("routeChangeComplete", handleComplete);
+        router.events.on("routeChangeError", handleComplete);
+
+        return () => {
+            router.events.off("routeChangeStart", handleStart);
+            router.events.off("routeChangeComplete", handleComplete);
+            router.events.off("routeChangeError", handleComplete);
+        };
+    }, [router.asPath, router.events]);
+
+    return (
+        <NavigationProgress
+            autoReset={true}
+            progressLabel="Loading page..."
+            color="splendid-green.6"
+        />
+    );
+};

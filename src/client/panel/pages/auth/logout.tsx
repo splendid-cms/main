@@ -1,18 +1,25 @@
-import type { NextPage } from "next";
 import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
+import { NextPageWithLayout } from "pages/_app";
+import { Title } from "@mantine/core";
 
-const Logout: NextPage = (): JSX.Element => {
+const Logout: NextPageWithLayout = (): JSX.Element => {
   const { logout } = useAuth();
-  const router = useRouter();
+  const { push }: NextRouter = useRouter();
 
   useEffect(() => {
     logout();
-    router.push("/");
-  }, [logout, router]);
+    push("/");
+  }, [logout, push]);
 
-  return <div>Logging out...</div>;
+  return (
+    <Title order={1} align="center">
+      Logging out...
+    </Title>
+  );
 };
+
+Logout.getLayout = (page) => page;
 
 export default Logout;

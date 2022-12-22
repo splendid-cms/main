@@ -7,6 +7,7 @@ export const useAuth = () => {
   const router = useRouter();
 
   useEffect(() => {
+    // Find user by cookie if already logged in
     const token = localStorage.getItem("access_token");
     if (token) {
       setUser(token);
@@ -14,6 +15,8 @@ export const useAuth = () => {
   }, []);
 
   const login = async (username: string, password: string): Promise<void | number> => {
+    // Make an API request for an access_token (JWT)
+    // returns 401 if incorrect details, 200 if OK
     const response: Response = await fetch("/api/auth/login", {
       method: "POST",
       headers: {
@@ -36,6 +39,7 @@ export const useAuth = () => {
   };
 
   const logout = (): void => {
+    // Set a cookie empty if logged out
     setCookie("access_token", "", {
       maxAge: -1,
       path: "/",
