@@ -1,7 +1,7 @@
-import { PanelProvider } from "components/layout";
+import { PanelProvider } from "@component/layout";
 
 import type { NextPage } from "next";
-import type { AppProps } from "next/app";
+import App, { AppContext, AppInitialProps } from "next/app";
 import { ReactElement } from "react";
 import { ColorScheme } from "@mantine/core";
 import { getCookie } from "cookies-next";
@@ -10,28 +10,32 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactElement;
 };
 
-type AppPropsWithLayout = AppProps & {
+type AppInitialPropsWithLayout = AppInitialProps & {
   Component: NextPageWithLayout;
+  colorScheme: ColorScheme;
 };
 
-const App: NextPage<AppPropsWithLayout & { colorScheme: ColorScheme }> = ({
-  Component,
-  pageProps,
-}): ReactElement => {
-  const getLayout = Component.getLayout
-    ? (page) => Component.getLayout(page)
-    : (page) => <PanelProvider>{page}</PanelProvider>;
+export default class Panel extends App<AppInitialPropsWithLayout> {
+  static async getInitialProps(
+    appContext: AppContext
+  ): Promise<AppInitialProps & { colorScheme: ColorScheme }> {
+    const appProps: AppInitialProps = await App.getInitialProps(appContext);
 
-  return getLayout(<Component {...pageProps} />);
-};
+    return {
+      ...appProps,
+      colorScheme: getCookie("color-scheme", appContext.ctx) as ColorScheme,
+    };
+  }
 
-App.getInitialProps = async (appContext) => {
-  const appProps = await App.getInitialProps(appContext);
+  render(): ReactElement {
+    const { Component, pageProps, colorScheme }: AppInitialPropsWithLayout =
+      this.props;
+    const getLayout = Component.getLayout
+      ? (page) => Component.getLayout(page)
+      : (page) => (
+          <PanelProvider colorScheme={colorScheme}>{page}</PanelProvider>
+        );
 
-  return {
-    ...appProps,
-    colorScheme: (getCookie("color-scheme") as ColorScheme) || "light",
-  };
-};
-
-export default App;
+    return getLayout(<Component {...pageProps} />);
+  }
+}

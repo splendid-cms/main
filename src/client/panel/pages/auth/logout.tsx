@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { NextRouter, useRouter } from "next/router";
-import { NextPageWithLayout } from "pages/_app";
+import { NextPageWithLayout } from "@page/_app";
 import { Title } from "@mantine/core";
 
 const Logout: NextPageWithLayout = (): JSX.Element => {

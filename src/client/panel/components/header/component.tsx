@@ -23,24 +23,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 /**
- * Header component that is used in the AppShell (see: src/pages/_app.tsx)
+ * Header component that is used in the AppShell if mobile version (see: components/layout/component.tsx)
  * @returns {ReactElement} Responsible div element with given options.
  * @see {@link https://nextjs.org/docs/advanced-features/custom-app Next.js Custom App}
  * @see {@link https://nextjs.org/docs/api-reference/next/router Next.js Router}
  * @see {@link https://mantine.dev/core/getting-started/ Mantine Core}
+ * @see {@link https://mantine.dev/core/app-shell/ AppShell}
  * @example
- * <Header
- *     tabs={[
- *         {
- *             label: "Home",
- *             href: "/"
- *         },
- *         {
- *             label: "About Us",
- *             href: "/about"
- *         }
- *     ]}
- * />
+ * <Header />
  **/
 export const Header: FunctionComponent = (): ReactElement => {
   const { classes, cx }: Styling = useStyles();

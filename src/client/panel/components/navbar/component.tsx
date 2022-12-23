@@ -14,6 +14,15 @@ import { navLinks } from "./config";
 
 import SplendidLogo from "@public/splendid-colored.svg";
 
+/**
+ * Navbar component that is used in the AppShell if desktop version (see: components/layout/component.tsx)
+ * @returns {ReactElement} Responsible div element with given options.
+ * @see {@link https://nextjs.org/docs/advanced-features/custom-app Next.js Custom App}
+ * @see {@link https://mantine.dev/core/getting-started/ Mantine Core}
+ * @see {@link https://mantine.dev/core/app-shell/ AppShell}
+ * @example
+ * <Navbar />
+ **/
 export const Navbar: FunctionComponent = (): ReactElement => {
   const { classes, cx } = useStyles();
   const router = useRouter();
@@ -32,6 +41,7 @@ export const Navbar: FunctionComponent = (): ReactElement => {
     <Tooltip
       label={link.label}
       position="right"
+      color="dark.5"
       withArrow
       transitionDuration={0}
       key={link.label}

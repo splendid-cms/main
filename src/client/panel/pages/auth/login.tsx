@@ -9,10 +9,10 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useAuth } from "hooks/useAuth";
+import { useAuth } from "@hook/useAuth";
 
 import type { ReactElement } from "react";
-import type { NextPageWithLayout } from "pages/_app";
+import type { NextPageWithLayout } from "@page/_app";
 
 import banner from "@public/scandinavian-fogs.png";
 

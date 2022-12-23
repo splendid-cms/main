@@ -1,5 +1,8 @@
 import { createStyles } from '@mantine/core';
 
+// Styles for the Navbar component
+// Used mantine's createStyles function
+// see: https://emotion.sh/docs/introduction
 export const useStyles = createStyles((theme) => ({
   wrapper: {
     display: 'flex',

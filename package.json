@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
     "@mantine/carousel": "^5.8.0",
     "@mantine/core": "^5.8.0",
     "@mantine/dates": "^5.8.0",
@@ -49,7 +50,6 @@
     "@mantine/notifications": "^5.8.0",
     "@mantine/nprogress": "^5.9.5",
     "@mantine/prism": "^5.8.0",
-    "@mantine/ssr": "^5.9.5",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
     "@nestjs/common": "^9.0.0",

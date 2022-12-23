@@ -6,17 +6,30 @@ import {
 } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { FunctionComponent, PropsWithChildren, useState } from "react";
-import { getCookie, setCookie } from "cookies-next";
-import { Header } from "./header/component";
-import { Navbar } from "./navbar/component";
-import { RouterTransition } from "./progress/component";
+import { setCookie } from "cookies-next";
+import { Header } from "@component/header";
+import { Navbar } from "@component/navbar";
+import { RouterTransition } from "@component/progress";
+import { Footer } from "@component/footer";
 
-export const PanelProvider: FunctionComponent<PropsWithChildren> = ({
-  children,
-}) => {
+/**
+ * Layout component that is used as a provider (see: pages/_app.tsx)
+ * @returns {ReactElement} Several providers wrapping the children property.
+ * @param {PropsWithChildren<{ colorScheme: ColorScheme }>} props The props of the component.
+ * @param {PropsWithChildren<{ colorScheme: ColorScheme }>} props.children The children of the component.
+ * @param {ColorScheme} props.colorScheme The color scheme of the component provided in _app.tsx as a cookie.
+ * @see {@link https://nextjs.org/docs/advanced-features/custom-app Next.js Custom App}
+ * @see {@link https://mantine.dev/core/getting-started/ Mantine Core}
+ * @see {@link https://mantine.dev/core/app-shell/ AppShell}
+ * @example
+ * <PanelProvider colorScheme="dark" />
+ **/
+export const PanelProvider: FunctionComponent<
+  PropsWithChildren<{ colorScheme: ColorScheme }>
+> = ({ children, ...props }) => {
   const mobile = useMediaQuery("(max-width: 900px)");
   const [colorScheme, setColorScheme] = useState<ColorScheme>(
-    (getCookie("color-scheme") as ColorScheme)
+    props.colorScheme
   );
 
   const toggleColorScheme = (value?: ColorScheme): void => {
@@ -85,7 +98,11 @@ export const PanelProvider: FunctionComponent<PropsWithChildren> = ({
         }}
       >
         <RouterTransition />
-        <AppShell header={mobile && <Header />} navbar={!mobile && <Navbar />}>
+        <AppShell
+          header={mobile && <Header />}
+          navbar={!mobile && <Navbar />}
+          footer={<Footer />}
+        >
           {children}
         </AppShell>
       </MantineProvider>

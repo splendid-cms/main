@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import {
     startNavigationProgress,
@@ -6,7 +6,16 @@ import {
     NavigationProgress,
 } from "@mantine/nprogress";
 
-export const RouterTransition = (): JSX.Element => {
+/**
+ * Progress bar component to show the user that the page is loading.
+ * @returns {ReactElement} Mantine's NavigationProgress component with additional Next options.
+ * @see {@link https://nextjs.org/docs/advanced-features/custom-app Next.js Custom App}
+ * @see {@link https://mantine.dev/core/getting-started/ Mantine Core}
+ * @see {@link https://mantine.dev/others/nprogress/ NProgress}
+ * @example
+ * <RouterTransition />
+ **/
+export const RouterTransition = (): ReactElement => {
     const router: NextRouter = useRouter();
 
     useEffect(() => {
