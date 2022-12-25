@@ -682,6 +682,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fastify/cookie@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@fastify/cookie@npm:8.3.0"
+  dependencies:
+    cookie: ^0.5.0
+    fastify-plugin: ^4.0.0
+  checksum: d5dfb5c85d4ae02188aad63c8cf055d3b904287bc2750964ee0b8589c5b5ae32850e8fc9456a8830e9f4e9f24d5059e54dac084835d6ef4cbba7fa4b9c4673b3
+  languageName: node
+  linkType: hard
+
 "@fastify/cors@npm:8.1.1":
   version: 8.1.1
   resolution: "@fastify/cors@npm:8.1.1"
@@ -2276,6 +2286,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/showdown@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@types/showdown@npm:2.0.0"
+  checksum: 90ae870146b3d3f2ca75732b5ee9b85cd2b10719f1aea8021af97e0bb6828acd7715093a1f715dcc18244636e1a983650556a051b1aa51a06018302b1d7c8722
+  languageName: node
+  linkType: hard
+
 "@types/stack-utils@npm:^2.0.0":
   version: 2.0.1
   resolution: "@types/stack-utils@npm:2.0.1"
@@ -3420,6 +3437,13 @@ __metadata:
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
   checksum: ab8c07884e42c3a8dbc5dd9592c606176c7eb5c1ca5ff274bcf907039b2c41de3626f684ea75ccf4d361ba004bbaff1f577d5384c155f3871e456bdf27becf9e
+  languageName: node
+  linkType: hard
+
+"commander@npm:^9.0.0":
+  version: 9.4.1
+  resolution: "commander@npm:9.4.1"
+  checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
   languageName: node
   linkType: hard
 
@@ -4673,10 +4697,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"he@npm:^1.1.0":
+  version: 1.2.0
+  resolution: "he@npm:1.2.0"
+  bin:
+    he: bin/he
+  checksum: 3d4d6babccccd79c5c5a3f929a68af33360d6445587d628087f39a965079d84f18ce9c3d3f917ee1e3978916fc833bb8b29377c3b403f919426f91bc6965e7a7
+  languageName: node
+  linkType: hard
+
 "hexoid@npm:1.0.0":
   version: 1.0.0
   resolution: "hexoid@npm:1.0.0"
   checksum: 27a148ca76a2358287f40445870116baaff4a0ed0acc99900bf167f0f708ffd82e044ff55e9949c71963852b580fc024146d3ac6d5d76b508b78d927fa48ae2d
+  languageName: node
+  linkType: hard
+
+"highlight.js@npm:^11.5.0":
+  version: 11.7.0
+  resolution: "highlight.js@npm:11.7.0"
+  checksum: 19e3fb8b56f4b361b057a8523b989dfeb6479bbd1e29cec3fac6fa5c78d09927d5fa61b7dba6631fdb57cfdca9b3084aa4da49405ceaf4a67f67beae2ed5b77d
   languageName: node
   linkType: hard
 
@@ -4696,6 +4736,17 @@ __metadata:
     domhandler: 4.3.1
     htmlparser2: 7.2.0
   checksum: d5e72baba7e1a9da334f023f3b3669247c5cebaf51b23011764202c11b3850339aa0fef9f26e00c2b0510e75fe6183453fcba33304a006f9fcde3d037bf60f3d
+  languageName: node
+  linkType: hard
+
+"html-encoder-decoder@npm:^1.3.9":
+  version: 1.3.9
+  resolution: "html-encoder-decoder@npm:1.3.9"
+  dependencies:
+    he: ^1.1.0
+    iterate-object: ^1.3.2
+    regex-escape: ^3.4.2
+  checksum: aaaf3fb9013598497afc386e86258c0efc2417c2fb05a1d559b62bf79874cdc7e307e6cdfe0c6c2fc962b47674dc697e5e71587e6e68425db03af35fe1d91319
   languageName: node
   linkType: hard
 
@@ -5196,6 +5247,13 @@ __metadata:
   version: 1.2.1
   resolution: "iterare@npm:1.2.1"
   checksum: 70bc80038e3718aa9072bc63b3a0135166d7120bde46bfcaf80a88d11005dcef1b2d69cd353849f87a3f58ba8f546a8c6e6983408236ff01fa50b52339ee5223
+  languageName: node
+  linkType: hard
+
+"iterate-object@npm:^1.3.2":
+  version: 1.3.4
+  resolution: "iterate-object@npm:1.3.4"
+  checksum: b63496c489177babccb4b487322279ea4377e08d02b93902c3ffba3032a788f014a74e03c615da2a24807fa3fca872f69c9570f7801c8e88181df7a49298904b
   languageName: node
   linkType: hard
 
@@ -7732,6 +7790,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"regex-escape@npm:^3.4.2":
+  version: 3.4.10
+  resolution: "regex-escape@npm:3.4.10"
+  checksum: 95fe8438cd6f9f0b40fbb78feadd49a6d2ab4c5f087f50f5f62ba76a40fe0619780bfbdda2301c88b1efc8550724c16f52b2ee2fc139689a4e42816dd5946f3e
+  languageName: node
+  linkType: hard
+
 "remark-mdx@npm:^2.0.0":
   version: 2.1.5
   resolution: "remark-mdx@npm:2.1.5"
@@ -7897,6 +7962,7 @@ __metadata:
   dependencies:
     "@emotion/react": ^11.10.5
     "@emotion/server": ^11.10.0
+    "@fastify/cookie": ^8.3.0
     "@mantine/carousel": ^5.8.0
     "@mantine/core": ^5.8.0
     "@mantine/dates": ^5.8.0
@@ -7927,6 +7993,7 @@ __metadata:
     "@types/passport-local": ^1.0.34
     "@types/react": ^18.0.25
     "@types/react-dom": ^18.0.9
+    "@types/showdown": ^2.0.0
     "@types/supertest": ^2.0.11
     cookies-next: ^2.1.1
     fastify: ^4.10.0
@@ -7942,6 +8009,8 @@ __metadata:
     reflect-metadata: ^0.1.13
     rimraf: ^3.0.2
     rxjs: ^7.2.0
+    showdown: ^2.1.0
+    showdown-highlight: ^3.1.0
     source-map-support: ^0.5.20
     supertest: ^6.1.3
     ts-jest: 28.0.8
@@ -8167,6 +8236,28 @@ __metadata:
   bin:
     shjs: bin/shjs
   checksum: 7babc46f732a98f4c054ec1f048b55b9149b98aa2da32f6cf9844c434b43c6251efebd6eec120937bd0999e13811ebd45efe17410edb3ca938f82f9381302748
+  languageName: node
+  linkType: hard
+
+"showdown-highlight@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "showdown-highlight@npm:3.1.0"
+  dependencies:
+    highlight.js: ^11.5.0
+    html-encoder-decoder: ^1.3.9
+    showdown: ^2.0.3
+  checksum: b1dde5d2f4d141b3e56375bb3d59b21bba3a5936fc80bfbe080affe2664905e123b944eb757633ca962f2e18e3adf04cc96b2de543fb2f3ba00bd1e8f6524060
+  languageName: node
+  linkType: hard
+
+"showdown@npm:^2.0.3, showdown@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "showdown@npm:2.1.0"
+  dependencies:
+    commander: ^9.0.0
+  bin:
+    showdown: bin/showdown.js
+  checksum: 9e33607612c4465f9ef39de356e2cee512e248eb71d4725e1d4353cf3ab4bbe89a94601ce6bfbd8245000633693c8b90e7d85a9613dfeba7704a7422cee78282
   languageName: node
   linkType: hard
 

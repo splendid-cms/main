@@ -5,14 +5,14 @@ import {
   Tooltip,
   Title,
   useMantineColorScheme,
+  ActionIcon,
 } from "@mantine/core";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useStyles } from "./styles";
 import { navLinks } from "./config";
 
-import SplendidLogo from "@public/splendid-colored.svg";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 
 /**
  * Navbar component that is used in the AppShell if desktop version (see: components/layout/component.tsx)
@@ -26,15 +26,15 @@ import SplendidLogo from "@public/splendid-colored.svg";
 export const Navbar: FunctionComponent = (): ReactElement => {
   const { classes, cx } = useStyles();
   const router = useRouter();
-  const { toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
   const [active, setActive] = useState(
     navLinks.find((link) =>
       link.sublinks.some((sub) => sub.href === router.pathname)
     ) ?? navLinks[0]
   );
   const [activeLink, setActiveLink] = useState(
-    active.sublinks.find((link) => link.href === router.pathname) ??
-      active.sublinks[0]
+    active.sublinks.find((link) => link.href === router.pathname)
   );
 
   const mainLinks = navLinks.map((link) => (
@@ -77,7 +77,15 @@ export const Navbar: FunctionComponent = (): ReactElement => {
       <MantineNavbar.Section grow className={classes.wrapper}>
         <div className={classes.aside}>
           <div className={classes.logo} onClick={() => toggleColorScheme()}>
-            <Image src={SplendidLogo} alt="Splendid" width={30} height={30} />
+            <ActionIcon
+              variant="light"
+              color={!dark ? "splendid-green" : "purple-heart"}
+              onClick={() => toggleColorScheme()}
+              title="Toggle color scheme"
+              size={44}
+            >
+              {!dark ? <IconSun stroke={2} /> : <IconMoonStars stroke={2} />}
+            </ActionIcon>
           </div>
           {mainLinks}
         </div>

@@ -14,13 +14,15 @@ import {
   UnstyledButton,
   Flex,
   Stack,
-  useMantineColorScheme
+  useMantineColorScheme,
+  ActionIcon
 } from "@mantine/core";
 
 import SplendidLogo from "@public/splendid-colored.svg";
 import { navLinks } from "./config";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { IconMoonStars, IconSun } from "@tabler/icons";
 
 /**
  * Header component that is used in the AppShell if mobile version (see: components/layout/component.tsx)
@@ -34,7 +36,8 @@ import Link from "next/link";
  **/
 export const Header: FunctionComponent = (): ReactElement => {
   const { classes, cx }: Styling = useStyles();
-  const { toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === "dark";
   const [opened, { toggle, close }] = useDisclosure(false);
   const router = useRouter();
   const [active, setActive] = useState(
@@ -43,8 +46,7 @@ export const Header: FunctionComponent = (): ReactElement => {
     ) ?? navLinks[0]
   );
   const [activeLink, setActiveLink] = useState(
-    active.sublinks.find((link) => link.href === router.pathname) ??
-      active.sublinks[0]
+    active.sublinks.find((link) => link.href === router.pathname)
   );
 
   const mainLinks = navLinks.map((link: LinkT) => (
@@ -81,14 +83,7 @@ export const Header: FunctionComponent = (): ReactElement => {
     <div className={classes.header}>
       <Container className={classes.mainSection}>
         <Group position="apart">
-          <Title order={3} className={classes.title}>
-            <Image
-              src={SplendidLogo}
-              alt="Splendid"
-              height={28}
-              width={28}
-              style={{ marginRight: 12 }}
-            />
+          <Title order={3} className={classes.title} pl="sm">
             {active.label}
           </Title>
 
@@ -105,7 +100,17 @@ export const Header: FunctionComponent = (): ReactElement => {
           transition="slide-right"
           position="left"
           title={(
-            <Title order={4}>
+            <Title order={4} className={classes.title}>
+              <ActionIcon
+                variant="light"
+                color={!dark ? 'splendid-green' : 'purple-heart'}
+                onClick={() => toggleColorScheme()}
+                title="Toggle color scheme"
+                mr="md"
+                size={44}
+              >
+                {!dark ? <IconSun stroke={2} /> : <IconMoonStars stroke={2} />}
+              </ActionIcon>
               {active.label}
             </Title>
           )}

@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useAuth } from "../../hooks/useAuth";
+import { ReactElement, useEffect } from "react";
+import { useAuth } from "../../hooks/auth";
 import { NextRouter, useRouter } from "next/router";
 import { NextPageWithLayout } from "@page/_app";
 import { Title } from "@mantine/core";
 
-const Logout: NextPageWithLayout = (): JSX.Element => {
+const Logout: NextPageWithLayout = (): ReactElement => {
   const { logout } = useAuth();
   const { push }: NextRouter = useRouter();
 
   useEffect(() => {
     logout();
-    push("/");
+    push("/auth/login");
   }, [logout, push]);
 
   return (

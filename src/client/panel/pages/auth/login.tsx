@@ -9,7 +9,7 @@ import {
   MantineProvider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useAuth } from "@hook/useAuth";
+import { useAuth } from "@hook/auth";
 
 import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "@page/_app";

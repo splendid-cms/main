@@ -65,8 +65,8 @@ export const useStyles = createStyles((theme) => ({
     width: "100%",
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
     height: 60,
-    paddingTop: theme.spacing.md,
     borderBottom: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
     }`,

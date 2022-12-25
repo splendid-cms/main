@@ -9,7 +9,7 @@ export class ViewController {
   constructor(private viewService: ViewService) {}
 
   @Get([
-    splendid.adminDashboardPrefix + "/auth/*",
+    splendid.adminDashboardPrefix + "/auth/login",
     splendid.adminDashboardPrefix + "/_next/*",
   ])
   public async login(@Req() req: FastifyRequest, @Res() res: FastifyReply) {

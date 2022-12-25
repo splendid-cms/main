@@ -3,6 +3,7 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { UsersModule } from "../users/users.module";
 import { AuthService } from "./auth.service";
+import { AuthController } from "./auth.controller";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
 import { splendid } from "package.json";
@@ -16,6 +17,7 @@ import { splendid } from "package.json";
       signOptions: { expiresIn: splendid.auth.expiresIn },
     }),
   ],
+  controllers: [AuthController],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
