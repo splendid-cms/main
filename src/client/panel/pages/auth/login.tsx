@@ -15,6 +15,7 @@ import type { ReactElement } from "react";
 import type { NextPageWithLayout } from "@page/_app";
 
 import banner from "@public/scandinavian-fogs.png";
+import { useRouter } from "next/router";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -22,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     // filter top & bottom padding
     minHeight: `calc(100vh - 2 * ${theme.spacing.md}px)`,
     padding: theme.spacing.md,
-    
+
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundImage: `url(${banner.src})`,
@@ -39,7 +40,6 @@ const useStyles = createStyles((theme) => ({
     height: "max-content",
     maxWidth: 450,
     paddingTop: 80,
-
   },
 
   title: {
@@ -49,6 +49,7 @@ const useStyles = createStyles((theme) => ({
 
 const AuthLogin: NextPageWithLayout = (): ReactElement => {
   const { classes } = useStyles();
+  const router = useRouter();
   const { login } = useAuth();
   const form = useForm({
     initialValues: {
@@ -57,24 +58,19 @@ const AuthLogin: NextPageWithLayout = (): ReactElement => {
     },
   });
 
+  const handleSubmit = (value: { username: string; password: string }) => {
+    login(value.username, value.password).then((statusCode) => {
+      if (statusCode === 401)
+        form.setFieldError("password", "Invalid username or password");
+      else if (statusCode === 201) router.push("/dashboard");
+    });
+  };
+
   return (
     <div className={classes.wrapper}>
-      <Paper className={classes.form} p={30} opacity={.9} withBorder>
-        <form
-          onSubmit={form.onSubmit((value) => {
-            login(value.username, value.password).then(
-              (statusCode) =>
-                statusCode === 401 &&
-                form.setFieldError("password", "Invalid credentials")
-            );
-          })}
-        >
-          <Title
-            order={2}
-            className={classes.title}
-            align="center"
-            mb="lg"
-          >
+      <Paper className={classes.form} p={30} opacity={0.9} withBorder>
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+          <Title order={2} className={classes.title} align="center" mb="lg">
             Welcome to Splendid!
           </Title>
 

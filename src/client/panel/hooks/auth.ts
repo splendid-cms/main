@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react";
-import { setCookie } from "cookies-next";
-import { useRouter } from "next/router";
+import { getCookie, setCookie } from "cookies-next";
 
 export interface UseAuth {
   user: string | null;
-  login: (username: string, password: string) => Promise<void | number>;
+  login: (username: string, password: string) => Promise<number>;
   logout: () => void;
 }
 
 /**
  * @returns {object} user, login, logout
  * @returns {string} user - The user's access_token cookie if logged in
- * @returns {Promise<void | number>} login - The login function's response status along with setting the user in cookie
+ * @returns {Promise<number>} login - The login function's response status along with setting the user in cookie
  * @returns {void} logout - Logs out the user by setting the cookie to empty
  *
  * @example
@@ -19,20 +18,17 @@ export interface UseAuth {
  **/
 export const useAuth = (): UseAuth => {
   const [user, setUser] = useState(null);
-  const router = useRouter();
 
   useEffect(() => {
     // Find user by cookie if already logged in
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      setUser(token);
-    }
+    const token = getCookie("access_token");
+    if (token) setUser(token);
   }, []);
 
   const login = async (
     username: string,
     password: string
-  ): Promise<void | number> => {
+  ): Promise<number> => {
     // Make an API request for an access_token (JWT)
     // returns 401 if incorrect details, 200 if OK
     const response: Response = await fetch("/api/auth/login", {
@@ -51,9 +47,8 @@ export const useAuth = (): UseAuth => {
         sameSite: true,
       });
       setUser(access_token);
-      router.push("/");
     }
-    return response.status;
+    return response.status || 401;
   };
 
   const logout = (): void => {
@@ -64,7 +59,6 @@ export const useAuth = (): UseAuth => {
       sameSite: true,
     });
     setUser(null);
-    router.push("/");
   };
 
   return { user, login, logout };

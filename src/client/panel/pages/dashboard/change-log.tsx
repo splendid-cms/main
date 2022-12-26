@@ -23,7 +23,7 @@ const ChangeLog: NextPage = (): ReactElement => {
   
   return (
     <Container>
-      <Title>Change Log</Title>
+      <Title align="center">Change Log</Title>
       <Space h="xl" />
       {error ? (
         <Text>Having troubles making request to get change log!</Text>

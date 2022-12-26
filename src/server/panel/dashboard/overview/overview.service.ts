@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Converter } from "showdown";
-import { splendid } from "package.json";
+import { convert } from "src/library/converter";
 
 export interface Overview {
   body: {
@@ -11,9 +10,6 @@ export interface Overview {
 
 @Injectable()
 export class OverviewService {
-  private readonly converter = new Converter(
-    splendid.experimental.markdownConverterOptions
-  );
 
   public readonly overviewApiUrl =
     "https://raw.githubusercontent.com/splendid-cms/main/main/README.md";
@@ -22,11 +18,11 @@ export class OverviewService {
     return fetch(this.overviewApiUrl);
   };
 
-  public parseOverview(overview: any): Overview {
+  public async parseOverview(overview: any): Promise<Overview> {
     return {
       body: {
         markdown: overview,
-        html: this.converter.makeHtml(overview),
+        html: await convert(overview),
       }
     };
   };

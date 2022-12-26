@@ -1,6 +1,10 @@
-# compiled output
+# Compiled output
 dist
 node_modules
+
+# Database
+migrations/
+storage/
 
 # Logs
 logs
@@ -67,6 +71,11 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Lock files
+package-lock.json
+yarn.lock
+.pnpm-lock.yaml
 
 # Vercel
 .vercel

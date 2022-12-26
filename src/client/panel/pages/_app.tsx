@@ -30,7 +30,6 @@ export default class Panel extends App<AppInitialPropsWithLayout> {
   //   appContext: AppContext
   // ): Promise<AppInitialProps & { colorScheme: ColorScheme }> {
   //   const appProps: AppInitialProps = await App.getInitialProps(appContext);
-
   //   return {
   //     ...appProps,
   //     colorScheme: getCookie("color-scheme", appContext.ctx) as ColorScheme,
@@ -40,12 +39,13 @@ export default class Panel extends App<AppInitialPropsWithLayout> {
 
   render(): ReactElement {
     const { Component, pageProps }: AppInitialPropsWithLayout = this.props;
-    const colorScheme: ColorScheme = this.props.colorScheme || getCookie("color-scheme") as ColorScheme;
+    // const colorScheme: ColorScheme = this.props?.colorScheme || getCookie("color-scheme") as ColorScheme;
+    const colorScheme: ColorScheme = getCookie("color-scheme") as ColorScheme;
 
     // If getLayout is defined, use it e.g. auth/login.tsx
     const getLayout = Component.getLayout
-      ? (page) => Component.getLayout(page)
-      : (page) => (
+      ? (page: ReactElement) => Component.getLayout(page)
+      : (page: ReactElement) => (
           <PanelProvider colorScheme={colorScheme}>
             {page}
           </PanelProvider>

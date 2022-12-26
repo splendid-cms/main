@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./storage/backup.db"
+}
+
+model Traffic {
+  id        Int       @id @default(autoincrement())
+  timestamp DateTime  @default(now())
+  ip        String    // To identify unique visitors
+  path      String    // For most popular visits only
+}

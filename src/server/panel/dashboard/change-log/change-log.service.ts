@@ -1,6 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { Converter } from "showdown";
-import { splendid } from "package.json";
+import { convert } from "src/library/converter";
 
 export interface ChangeLog {
   name: string;
@@ -12,10 +11,6 @@ export interface ChangeLog {
 
 @Injectable()
 export class ChangeLogService {
-  private readonly converter = new Converter(
-    splendid.experimental.markdownConverterOptions
-  );
-  
   public readonly changeLogApiUrl =
     "https://api.github.com/repos/splendid-cms/main/releases";
 
@@ -23,14 +18,16 @@ export class ChangeLogService {
     return fetch(this.changeLogApiUrl);
   };
 
-  public parseChangeLog(changeLog: any[]): ChangeLog[] {
-    return changeLog.map((release: any) => ({
+  public parseChangeLog(changeLog: any[]): Promise<ChangeLog[]> {
+    const changeLogResponse = changeLog.map(async (release: any) => ({
       name: release.name,
       body: {
         markdown: release.body,
-        html: this.converter.makeHtml(release.body)
+        html: await convert(release.body)
       },
     }));
+    
+    return Promise.all(changeLogResponse);
   };
 
   public async getChangeLog(): Promise<ChangeLog[]> {

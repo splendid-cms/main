@@ -1,16 +1,6 @@
-const { writeFileSync } = require('fs');
+const { splendid } = require('../../../package.json');
 
-const withMDX = require('@next/mdx')({
-    extension: /\.mdx?$/,
-    options: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-        options: {
-            providerImportSource: '@mdx-js/react',
-        },
-    },
-});
-
-module.exports = withMDX({
-    pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx']
-});
+/**
+ * @type {import('next').NextConfig}
+ */
+module.exports = splendid.experimental.serverOptions;
