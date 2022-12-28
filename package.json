@@ -20,7 +20,12 @@
     "experimental": {
       "developmentEnvironment": false,
       "serverOptions": {
-        "pageExtensions": ["jsx", "js", "tsx", "ts"],
+        "pageExtensions": [
+          "jsx",
+          "js",
+          "tsx",
+          "ts"
+        ],
         "devIndicators": {
           "buildActivityPosition": "bottom-right"
         }
@@ -33,11 +38,18 @@
     "build": "nest build && cd src/client/global && next build && cd ../panel && next build && cd ../../..",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
     "start": "node .",
+
+    "start:watch": "node . --watch",
     "start:watch:backend": "nest start --watch",
     "start:watch:panel": "cd src/client/panel && next dev",
     "start:watch:global": "cd src/client/global && next dev",
-    "start:debug:backend": "nest start --debug --watch",
+
     "start:build": "npm run build && node .",
+    "start:build:backend": "nest build && node .",
+    "start:build:panel": "cd src/client/panel && next build && cd ../../.. && node .",
+    "start:build:global": "cd src/client/global && next build && cd ../../.. && node .",
+
+    "start:debug:backend": "nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -63,6 +75,8 @@
     "@nestjs/jwt": "^9.0.0",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-fastify": "^9.2.0",
+    "@nivo/core": "^0.80.0",
+    "@nivo/line": "^0.80.0",
     "@prisma/client": "^4.8.0",
     "@reduxjs/toolkit": "^1.9.1",
     "@tabler/icons": "^1.117.0",

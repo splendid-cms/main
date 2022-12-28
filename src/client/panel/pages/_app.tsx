@@ -39,8 +39,7 @@ export default class Panel extends App<AppInitialPropsWithLayout> {
 
   render(): ReactElement {
     const { Component, pageProps }: AppInitialPropsWithLayout = this.props;
-    // const colorScheme: ColorScheme = this.props?.colorScheme || getCookie("color-scheme") as ColorScheme;
-    const colorScheme: ColorScheme = getCookie("color-scheme") as ColorScheme;
+    const colorScheme: ColorScheme = this.props?.colorScheme || getCookie("color-scheme") as ColorScheme;
 
     // If getLayout is defined, use it e.g. auth/login.tsx
     const getLayout = Component.getLayout

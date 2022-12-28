@@ -60,6 +60,7 @@ const AuthLogin: NextPageWithLayout = (): ReactElement => {
 
   const handleSubmit = (value: { username: string; password: string }) => {
     login(value.username, value.password).then((statusCode) => {
+      // Ternary operator is not working here
       if (statusCode === 401)
         form.setFieldError("password", "Invalid username or password");
       else if (statusCode === 201) router.push("/dashboard");

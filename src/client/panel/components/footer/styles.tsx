@@ -5,16 +5,16 @@ import { createStyles } from "@mantine/core";
 // see: https://emotion.sh/docs/introduction
 export const useStyles = createStyles((theme) => ({
     footer: {
-        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
         [theme.fn.smallerThan(900)]: {
             paddingLeft: 0
         },
         paddingLeft: 300,
-        borderTop: `1px solid ${
-            theme.colorScheme === "dark"
-                ? theme.colors.dark[5]
-                : theme.colors.gray[2]
-        }`,
+    },
+
+    wrapper: {
+        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+        borderTopLeftRadius: theme.radius.sm,
+        borderTopRightRadius: theme.radius.sm
     },
 
     inner: {

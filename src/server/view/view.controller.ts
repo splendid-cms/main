@@ -3,19 +3,14 @@ import { Controller, Get, Res, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { ViewService } from "./view.service";
 import { splendid } from "package.json";
-import { Database } from "src/library/database";
+import { TrafficService } from "../panel/analytics/traffic/traffic.service";
 
 @Controller("/")
 export class ViewController {
-  private _database: Database;
-
-  constructor(private viewService: ViewService) {
-    this._database = new Database();
-  }
-
-  public get database(): Database {
-    return this._database;
-  }
+  constructor(
+    private viewService: ViewService,
+    private trafficService: TrafficService
+  ) {}
 
   @Get([
     splendid.adminDashboardPrefix + "/auth/login",
@@ -33,14 +28,7 @@ export class ViewController {
 
   @Get("*")
   public async global(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
-    // Asynchronous database call
-    // Saving traffic to database
-    this.database.addTraffic({
-      ip: req.ip,
-      path: req.url,
-      timestamp: new Date()
-    }).catch(() => {});
-
+    if (!req.url.startsWith("/_next")) this.trafficService.saveTraffic(req);
     this.viewService.server.global.getRequestHandler()(req.raw, res.raw);
   }
 }

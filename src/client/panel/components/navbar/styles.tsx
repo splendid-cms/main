@@ -21,7 +21,6 @@ export const useStyles = createStyles((theme) => ({
 
   main: {
     flex: 1,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     borderRight: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[3]
     }`,
@@ -50,7 +49,6 @@ export const useStyles = createStyles((theme) => ({
 
   title: {
     boxSizing: 'border-box',
-    marginBottom: theme.spacing.xl,
     backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
     padding: theme.spacing.md,
     paddingTop: 18,

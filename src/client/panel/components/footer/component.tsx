@@ -19,19 +19,16 @@ import { footerLicense } from "./config";
  * <Footer />
  **/
 export const Footer: FunctionComponent = (): ReactElement => {
-    const { classes }: Styling = useStyles();
+  const { classes }: Styling = useStyles();
 
-    return (
-        <div className={classes.footer}>
-            <Container className={classes.inner}>
-                <Image
-                    src={PlatformBlack}
-                    alt="Platform"
-                    height={30}
-                    width={30}
-                />
-                <Group className={classes.info}>{footerLicense}</Group>
-            </Container>
-        </div>
-    );
+  return (
+    <div className={classes.footer}>
+      <div className={classes.wrapper}>
+        <Container className={classes.inner}>
+          <Image src={PlatformBlack} alt="Platform" height={30} width={30} />
+          <Group className={classes.info}>{footerLicense}</Group>
+        </Container>
+      </div>
+    </div>
+  );
 };

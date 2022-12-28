@@ -6,6 +6,7 @@ import {
   Title,
   useMantineColorScheme,
   ActionIcon,
+  Paper,
 } from "@mantine/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,7 +25,7 @@ import { IconMoonStars, IconSun } from "@tabler/icons";
  * <Navbar />
  **/
 export const Navbar: FunctionComponent = (): ReactElement => {
-  const { classes, cx } = useStyles();
+  const { classes, theme, cx } = useStyles();
   const router = useRouter();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
@@ -93,7 +94,16 @@ export const Navbar: FunctionComponent = (): ReactElement => {
           <Title order={4} className={classes.title}>
             {active.label}
           </Title>
-          {links}
+          <Paper
+            h="100%"
+            pt="xl"
+            bg={
+              theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[0]
+            }
+            radius={theme.colorScheme === "dark" ? "sm" : 0}
+          >
+            {links}
+          </Paper>
         </div>
       </MantineNavbar.Section>
     </MantineNavbar>
