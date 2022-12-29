@@ -1,7 +1,6 @@
 import { useStyles } from "./styles";
 import Image from "next/image";
 
-import type { FooterProps, Link as LinkType, Styling } from "./types";
 import type { FunctionComponent, ReactElement } from "react";
 
 import { Container, Group } from "@mantine/core";
@@ -19,7 +18,7 @@ import { footerLicense } from "./config";
  * <Footer />
  **/
 export const Footer: FunctionComponent = (): ReactElement => {
-  const { classes }: Styling = useStyles();
+  const { classes } = useStyles();
 
   return (
     <div className={classes.footer}>

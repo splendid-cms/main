@@ -1,9 +1,8 @@
 import { useDisclosure } from "@mantine/hooks";
 import { useStyles } from "./styles";
-import Image from "next/image";
 
 import { FunctionComponent, ReactElement, useState } from "react";
-import type { Link as LinkT, Styling } from "./types";
+// import type { Link as LinkT } from "./types";
 
 import {
   Container,
@@ -18,10 +17,9 @@ import {
   ActionIcon
 } from "@mantine/core";
 
-import SplendidLogo from "@public/splendid-colored.svg";
 import { navLinks } from "./config";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import NextLink from "next/link";
 import { IconMoonStars, IconSun } from "@tabler/icons";
 
 /**
@@ -35,13 +33,13 @@ import { IconMoonStars, IconSun } from "@tabler/icons";
  * <Header />
  **/
 export const Header: FunctionComponent = (): ReactElement => {
-  const { classes, cx }: Styling = useStyles();
+  const { classes, theme, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === "dark";
   const [opened, { toggle, close }] = useDisclosure(false);
   const router = useRouter();
   const [active, setActive] = useState(
-    navLinks.find((link: LinkT) =>
+    navLinks.find((link: Link) =>
       link.sublinks.some((sub) => sub.href === router.pathname)
     ) ?? navLinks[0]
   );
@@ -49,7 +47,7 @@ export const Header: FunctionComponent = (): ReactElement => {
     active.sublinks.find((link) => link.href === router.pathname)
   );
 
-  const mainLinks = navLinks.map((link: LinkT) => (
+  const mainLinks = navLinks.map((link: Link) => (
     <UnstyledButton
       onClick={() => setActive(link)}
       key={link.label}
@@ -64,7 +62,7 @@ export const Header: FunctionComponent = (): ReactElement => {
   const links = navLinks
     .find((link) => link.label === active.label)
     .sublinks.map((link) => (
-      <Link
+      <NextLink
         className={cx(classes.link, {
           [classes.linkActive]: activeLink === link,
         })}
@@ -76,7 +74,7 @@ export const Header: FunctionComponent = (): ReactElement => {
         key={link.label}
       >
         {link.label}
-      </Link>
+      </NextLink>
     ));
 
   return (
@@ -89,6 +87,7 @@ export const Header: FunctionComponent = (): ReactElement => {
 
           <Burger
             opened={opened}
+            color={dark ? theme.colors.gray[5] : theme.black}
             onClick={toggle}
             size="sm"
           />

@@ -38,17 +38,14 @@
     "build": "nest build && cd src/client/global && next build && cd ../panel && next build && cd ../../..",
     "format": "prettier --write \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
     "start": "node .",
-
     "start:watch": "node . --watch",
     "start:watch:backend": "nest start --watch",
     "start:watch:panel": "cd src/client/panel && next dev",
     "start:watch:global": "cd src/client/global && next dev",
-
     "start:build": "npm run build && node .",
     "start:build:backend": "nest build && node .",
     "start:build:panel": "cd src/client/panel && next build && cd ../../.. && node .",
     "start:build:global": "cd src/client/global && next build && cd ../../.. && node .",
-
     "start:debug:backend": "nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
@@ -98,6 +95,7 @@
     "remark-rehype": "^10.1.0",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "sharp": "^0.31.3",
     "unified": "^10.1.2"
   },
   "devDependencies": {

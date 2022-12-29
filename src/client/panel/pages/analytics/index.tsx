@@ -220,7 +220,7 @@ const Traffic: NextPage = (): ReactElement => {
       </Title>
       <Card my="xl">
         <Text>
-          This chart shows the number of visits to your website in the last 7 days. You can hover over
+          This chart shows the number of visits to your website this week. You can hover over
           the chart to see the exact number of visits for each day. The chart is responsive and will
           adapt to the size of the screen.
         </Text>

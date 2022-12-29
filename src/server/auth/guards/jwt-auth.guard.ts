@@ -5,20 +5,15 @@ import type { FastifyReply } from "fastify";
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard("jwt") {
-  handleRequest(err: any, user: any, info: any, context: any) {
+  handleRequest(err: any, user: any, _info: any, context: any) {
+    const res: FastifyReply = context.getResponse();
+    res.raw.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     if (err || !user) {
-      const res: FastifyReply = context.getResponse();
-      throw (
-        res
-          .code(301)
-          .redirect(`/${splendid.adminDashboardPrefix}/auth/login`) ||
-        new UnauthorizedException()
-      );
+      res
+        .code(301)
+        .redirect(`/${splendid.adminDashboardPrefix}/auth/login`);
+      throw new UnauthorizedException()
     }
-    if (err)
-      throw {
-        statusCode: 401,
-      };
     return user;
   }
 }
