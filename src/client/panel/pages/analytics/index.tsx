@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { ReactElement } from "react";
-import { useTraffic, UseTraffic } from "@hook/analytics";
+import { useTraffic } from "@hook/analytics";
 import { ResponsiveLine } from "@nivo/line";
 import type { Serie } from "@nivo/line";
 import {
@@ -20,7 +20,7 @@ import { IconArrowUpRight, IconArrowDownRight, IconEqual } from "@tabler/icons";
 const Statistics = ({ stats }: { stats: any }): ReactElement => (
   <SimpleGrid cols={3} breakpoints={[{ maxWidth: "sm", cols: 1 }]}>
     {stats.map((stat: any) => (
-      <Card p="md">
+      <Card p="md" key={stat.title}>
         <Group position="apart">
           <div>
             <Text color="dimmed" transform="uppercase" weight={700} size="xs">
@@ -55,7 +55,7 @@ const Statistics = ({ stats }: { stats: any }): ReactElement => (
         <Text color="dimmed" size="sm" mt="md">
           <Text
             component="span"
-            color={stat.diff > 0 ? "teal" : stat.diff == 0 ? "gray.4" : "red"}
+            color={stat.diff > 0 ? "teal" : stat.diff == 0 ? "gray.6" : "red"}
             weight={700}
           >
             {stat.diff}%
@@ -154,12 +154,12 @@ const Line = ({ data }: { data: Serie[] }): ReactElement => {
   );
 };
 const Traffic: NextPage = (): ReactElement => {
-  const { data, traffic, loading, error }: UseTraffic = useTraffic();
+  const [ data, traffic, loading, error ]: UseTraffic = useTraffic();
 
   // Get today's day of the week (0-6) and yesterday's day of the week (0-6)
-  const day = new Date().getDay() - 1;
-  // If today is Monday, set yesterday to Sunday
-  const yesterday = day == 0 ? 6 : day - 1;
+  // JS is weird and Sunday is 0, so we add 1 and then subtract 1 to get 0-6
+  const day = (new Date().getDay() || 7) - 1;
+  const yesterday = (day || 1) - 1;
 
   // Replace 0 with 1 to avoid division by 0
   const stableTraffic = (dayTraffic: any = 0) =>
@@ -225,7 +225,7 @@ const Traffic: NextPage = (): ReactElement => {
           adapt to the size of the screen.
         </Text>
       </Card>
-      <Card h={600} radius="sm">
+      <Card h={600}>
         {error ? (
           <Text>Having troubles making request to get statistics!</Text>
         ) : (
@@ -243,7 +243,7 @@ const Traffic: NextPage = (): ReactElement => {
           per day excluding today.
         </Text>
       </Card>
-      <Card bg="transparent" p={0} mb="xl">
+      <Card bg="transparent" p={0} mb="xl" withBorder={false}>
         {error ? (
           <Text>Having troubles making request to get statistics!</Text>
         ) : (

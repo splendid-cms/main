@@ -5,7 +5,7 @@ import { NextPageWithLayout } from "@page/_app";
 import { Title } from "@mantine/core";
 
 const Logout: NextPageWithLayout = (): ReactElement => {
-  const { logout } = useAuth();
+  const [ _, __, logout ]: UseAuth = useAuth();
   const { push }: NextRouter = useRouter();
 
   useEffect(() => {

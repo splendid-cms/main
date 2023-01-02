@@ -50,7 +50,7 @@ const useStyles = createStyles((theme) => ({
 const AuthLogin: NextPageWithLayout = (): ReactElement => {
   const { classes } = useStyles();
   const router = useRouter();
-  const { login } = useAuth();
+  const [ _, login ]: UseAuth = useAuth();
   const form = useForm({
     initialValues: {
       username: "",

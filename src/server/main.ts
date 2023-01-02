@@ -5,8 +5,8 @@ import {
 } from "@nestjs/platform-fastify";
 import { fastifyCookie } from "@fastify/cookie";
 import { AppModule } from "./app.module";
-import { splendid } from "package.json";
-
+import { IPGuard } from "./panel/analytics/security/guards/ip.guard";
+import config from "@config";
 
 // TODO: @splendid-cms/logr module
 import type { LoggerService } from "@nestjs/common";
@@ -16,6 +16,7 @@ export class MyLogger implements LoggerService {
    * Write a 'log' level log.
    */
   log(message: any, ...optionalParams: any[]) {
+    console.log(...optionalParams);
     console.log(message, ...optionalParams);
   }
 
@@ -51,27 +52,27 @@ export class MyLogger implements LoggerService {
 const bootstrap = async (): Promise<void> => {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({
-      logger: false,
-    })
+    new FastifyAdapter()
   );
 
   // Any because fastify-plugin type doesn't match adapter one
   app.register(fastifyCookie as any);
   app.useLogger(new MyLogger());
+  app.useGlobalGuards(new IPGuard());
 
   // API routes start with /api
   // Excluding what's in the view module (Next.js sessions)
   app.setGlobalPrefix("api", {
     exclude: [
       "/*",
-      splendid.adminDashboardPrefix + "/*",
-      splendid.adminDashboardPrefix + "/auth/login",
-      splendid.adminDashboardPrefix + "/_next/*",
+      config.adminDashboardPrefix,
+      config.adminDashboardPrefix + "/*",
+      config.adminDashboardPrefix + "/auth/login",
+      config.adminDashboardPrefix + "/_next/*",
     ],
   });
 
-  await app.listen(splendid.port, splendid.address);
+  await app.listen(config.port, config.address);
 };
 
 bootstrap();

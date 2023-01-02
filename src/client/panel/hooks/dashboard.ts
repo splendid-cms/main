@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
 
-export const changeLogApiUrl = "/api/dashboard/changelog/get";
-export const overviewApiUrl = "/api/dashboard/overview/get";
-
-export interface UseChangeLog {
-  changeLog: ChangeLog[];
-  loading: boolean;
-  error: boolean;
-}
-
-export interface ChangeLog {
-  name: string;
-  body: {
-    markdown: string;
-    html: string;
-  };
-}
+export const changeLogApiUrl = "/api/dashboard/changelog";
+export const overviewApiUrl = "/api/dashboard/overview";
 
 export const useChangeLog = (): UseChangeLog => {
   const [changeLog, setChangeLog] = useState<ChangeLog[]>([]);
@@ -38,21 +24,8 @@ export const useChangeLog = (): UseChangeLog => {
     fetchChangeLog();
   }, []);
 
-  return { changeLog, loading, error };
+  return [ changeLog, loading, error ];
 };
-
-export interface UseOverview {
-  overview: Overview;
-  loading: boolean;
-  error: boolean;
-}
-
-export interface Overview {
-  body: {
-    markdown: string;
-    html: string;
-  };
-}
 
 export const useOverview = (): UseOverview => {
   const [overview, setOverview] = useState<Overview>();
@@ -74,5 +47,5 @@ export const useOverview = (): UseOverview => {
     fetchOverview();
   }, []);
 
-  return { overview, loading, error };
+  return [ overview, loading, error ];
 };

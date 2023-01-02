@@ -5,7 +5,7 @@ import { UsersModule } from "../users/users.module";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./strategies/jwt.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
-import { splendid } from "package.json";
+import config from "@config";
 
 describe("AuthService", () => {
   let service: AuthService;
@@ -16,8 +16,8 @@ describe("AuthService", () => {
         UsersModule,
         PassportModule,
         JwtModule.register({
-          secret: splendid.auth.secretKey,
-          signOptions: { expiresIn: splendid.auth.expiresIn },
+          secret: config.auth.secretKey,
+          signOptions: { expiresIn: config.auth.expiresIn },
         }),
       ],
       providers: [AuthService, LocalStrategy, JwtStrategy],
@@ -40,8 +40,8 @@ describe("validateUser", () => {
         UsersModule,
         PassportModule,
         JwtModule.register({
-          secret: splendid.auth.secretKey,
-          signOptions: { expiresIn: splendid.auth.expiresIn },
+          secret: config.auth.secretKey,
+          signOptions: { expiresIn: config.auth.expiresIn },
         }),
       ],
       providers: [AuthService, LocalStrategy, JwtStrategy],
@@ -70,8 +70,8 @@ describe("validateLogin", () => {
         UsersModule,
         PassportModule,
         JwtModule.register({
-          secret: splendid.auth.secretKey,
-          signOptions: { expiresIn: splendid.auth.expiresIn },
+          secret: config.auth.secretKey,
+          signOptions: { expiresIn: config.auth.expiresIn },
         }),
       ],
       providers: [AuthService, LocalStrategy, JwtStrategy],

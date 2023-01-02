@@ -3,7 +3,9 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
+  useMantineTheme,
 } from "@mantine/core";
+import { NotificationsProvider } from "@mantine/notifications";
 import { useMediaQuery } from "@mantine/hooks";
 import { FunctionComponent, PropsWithChildren, useState } from "react";
 import { setCookie } from "cookies-next";
@@ -55,8 +57,16 @@ export const PanelProvider: FunctionComponent<
         withCSSVariables
         theme={{
           colorScheme,
+          loader: "dots",
           primaryColor: "splendid-green",
           primaryShade: 9,
+          components: {
+            Card: {
+              defaultProps: (theme) => ({
+                withBorder: theme.colorScheme === "light"
+              })
+            }
+          },
           colors: {
             "splendid-green": [
               "#F1F6EC",
@@ -98,13 +108,15 @@ export const PanelProvider: FunctionComponent<
         }}
       >
         <RouterTransition />
-        <AppShell
-          header={mobile && <Header />}
-          navbar={!mobile && <Navbar />}
-          footer={<Footer />}
-        >
-          {children}
-        </AppShell>
+        <NotificationsProvider>
+          <AppShell
+            header={mobile && <Header />}
+            navbar={!mobile && <Navbar />}
+            footer={<Footer />}
+          >
+            {children}
+          </AppShell>
+        </NotificationsProvider>
       </MantineProvider>
     </ColorSchemeProvider>
   );

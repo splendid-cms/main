@@ -5,7 +5,7 @@ import { ChangeLogService, ChangeLog } from "./change-log.service";
 export class ChangeLogController {
   constructor(private readonly changeLogService: ChangeLogService) {};
 
-  @Get("changelog/get")
+  @Get("changelog")
   async changeLog(): Promise<ChangeLog[]> {
     return this.changeLogService.getChangeLog();
   };

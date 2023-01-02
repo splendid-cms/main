@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { splendid } from "package.json";
+import config from "@config";
 
 export type User = any;
 
-const users: User[] = splendid.users.map((user) => {
+const users: User[] = config.users.map((user) => {
   return {
     userId: user.id,
     username: user.name,

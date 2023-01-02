@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
-import { splendid } from "package.json";
+import config from "@config";
+
 import type { FastifyReply } from "fastify";
 
 @Injectable()
@@ -11,7 +12,7 @@ export class JwtAuthGuard extends AuthGuard("jwt") {
     if (err || !user) {
       res
         .code(301)
-        .redirect(`/${splendid.adminDashboardPrefix}/auth/login`);
+        .redirect(`/${config.adminDashboardPrefix}/auth/login`);
       throw new UnauthorizedException()
     }
     return user;

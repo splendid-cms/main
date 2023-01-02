@@ -5,7 +5,7 @@ import type { FunctionComponent, ReactElement } from "react";
 
 import { Container, Group } from "@mantine/core";
 
-import PlatformBlack from "@public/splendid-colored.svg";
+import SplendidColored from "@public/splendid-colored.svg";
 import { footerLicense } from "./config";
 
 /**
@@ -24,7 +24,7 @@ export const Footer: FunctionComponent = (): ReactElement => {
     <div className={classes.footer}>
       <div className={classes.wrapper}>
         <Container className={classes.inner}>
-          <Image src={PlatformBlack} alt="Platform" height={30} width={30} />
+          <Image src={SplendidColored} alt="Splendid" height={30} width={30} />
           <Group className={classes.info}>{footerLicense}</Group>
         </Container>
       </div>

@@ -102,6 +102,7 @@ export const Header: FunctionComponent = (): ReactElement => {
             <Title order={4} className={classes.title}>
               <ActionIcon
                 variant="light"
+                radius="sm"
                 color={!dark ? 'splendid-green' : 'purple-heart'}
                 onClick={() => toggleColorScheme()}
                 title="Toggle color scheme"

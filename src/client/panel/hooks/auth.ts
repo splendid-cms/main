@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "cookies-next";
 
-export interface UseAuth {
-  user: string | null;
-  login: (username: string, password: string) => Promise<number>;
-  logout: () => void;
-}
-
 /**
  * @returns {object} user, login, logout
- * @returns {string} user - The user's access_token cookie if logged in
+ * @returns {string | true} user - The user's access_token cookie if logged in
  * @returns {Promise<number>} login - The login function's response status along with setting the user in cookie
  * @returns {void} logout - Logs out the user by setting the cookie to empty
  *
@@ -17,7 +11,7 @@ export interface UseAuth {
  * const { user, login, logout } = useAuth();
  **/
 export const useAuth = (): UseAuth => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<string | true>(null);
 
   useEffect(() => {
     // Find user by cookie if already logged in
@@ -61,5 +55,5 @@ export const useAuth = (): UseAuth => {
     setUser(null);
   };
 
-  return { user, login, logout };
+  return [ user, login, logout ];
 };

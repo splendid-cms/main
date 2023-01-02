@@ -3,7 +3,7 @@ import { FastifyRequest } from "fastify";
 import { Database } from "src/library/database";
 
 export interface Traffic {
-  timestamp: Date;
+  timestamp?: Date;
   ip: string;
   path: string;
 }
@@ -21,16 +21,6 @@ export interface ParsedTraffic {
 export interface UniqueTraffic {
   unique: Traffic[];
   visitors: number;
-}
-
-export enum Day {
-  Monday = 0,
-  Tuesday = 1,
-  Wednesday = 2,
-  Thursday = 3,
-  Friday = 4,
-  Saturday = 5,
-  Sunday = 6,
 }
 
 @Injectable()
@@ -61,7 +51,7 @@ export class TrafficService {
 
     return {
       unique,
-      visitors
+      visitors,
     };
   }
 
@@ -69,8 +59,10 @@ export class TrafficService {
     weeklyTraffic: Traffic[],
     day: number
   ): Promise<Traffic[]> {
+    // Filter traffic by day of the year, if getDay() returns 0, it's Sunday, so we need to set it to 7
     const dailyTraffic: Traffic[] = weeklyTraffic.filter(
-      (trafficItem: Traffic) => trafficItem.timestamp.getDay() - 1 === day
+      (trafficItem: Traffic) =>
+        (trafficItem.timestamp.getDay() || 7) - 1 === day
     );
     return dailyTraffic;
   }
@@ -90,20 +82,37 @@ export class TrafficService {
 
   public async getWeeklyTraffic(): Promise<ParsedTraffic[]> {
     const traffic: Traffic[] = await this.database.getTraffic();
+
+    const weekNumber = (d: Date = new Date()) => {
+      let date = new Date(d.getTime());
+      date.setHours(0, 0, 0, 0);
+      date.setDate(date.getDate() + 3 - ((date.getDay() + 6) % 7));
+
+      let week1 = new Date(date.getFullYear(), 0, 4);
+      return (
+        1 +
+        Math.round(
+          ((date.getTime() - week1.getTime()) / 86400000 -
+            3 +
+            ((week1.getDay() + 6) % 7)) /
+            7
+        )
+      );
+    };
+
     const week: Traffic[] = traffic.filter(
       (trafficItem: Traffic) =>
-        trafficItem.timestamp.getTime() >
-        new Date(new Date().getTime() - 7 * 24 * 60 * 60 * 1000).getTime()
+        weekNumber(trafficItem.timestamp) === weekNumber(new Date()) &&
+        trafficItem.timestamp.getFullYear() === new Date().getFullYear()
     );
-    const weekTraffic: ParsedTraffic[] = [
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Monday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Tuesday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Wednesday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Thursday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Friday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Saturday)),
-      await this.parseTraffic(await this.getDailyTraffic(week, Day.Sunday)),
-    ];
+
+    let weekTraffic: ParsedTraffic[] = [];
+    for (let i = 0; i < 7; i++) {
+      weekTraffic.push(
+        await this.parseTraffic(await this.getDailyTraffic(week, i))
+      );
+    }
+
     return weekTraffic;
   }
 
@@ -122,6 +131,6 @@ export class TrafficService {
         path: req.url,
         timestamp: new Date(),
       })
-      .catch(() => {});
+      .catch((err) => {});
   }
 }

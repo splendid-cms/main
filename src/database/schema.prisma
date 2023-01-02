@@ -13,3 +13,24 @@ model Traffic {
   ip        String    // To identify unique visitors
   path      String    // For most popular visits only
 }
+
+model IP {
+  id        Int       @id @default(autoincrement())
+  ip        String    @unique
+  blocked   Boolean   @default(false)
+  whitelist Boolean   @default(false)
+  timestamp DateTime  @default(now())
+}
+
+model UserLog {
+  id        Int       @id @default(autoincrement())
+  timestamp DateTime  @default(now())
+  ip        String    // To identify unique visitors
+}
+
+model ErrorLog {
+  id        Int       @id @default(autoincrement())
+  timestamp DateTime  @default(now())
+  ip        String
+  error     String    // Error message
+}

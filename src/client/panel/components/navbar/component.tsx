@@ -80,6 +80,7 @@ export const Navbar: FunctionComponent = (): ReactElement => {
           <div className={classes.logo} onClick={() => toggleColorScheme()}>
             <ActionIcon
               variant="light"
+              radius="sm"
               color={!dark ? "splendid-green" : "purple-heart"}
               onClick={() => toggleColorScheme()}
               title="Toggle color scheme"

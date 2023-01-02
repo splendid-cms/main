@@ -2,7 +2,7 @@ import type { FastifyRequest, FastifyReply } from "fastify";
 import { Controller, Get, Res, Req, UseGuards } from "@nestjs/common";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { ViewService } from "./view.service";
-import { splendid } from "package.json";
+import config from "@config";
 import { TrafficService } from "../panel/analytics/traffic/traffic.service";
 
 @Controller("/")
@@ -13,15 +13,18 @@ export class ViewController {
   ) {}
 
   @Get([
-    splendid.adminDashboardPrefix + "/auth/login",
-    splendid.adminDashboardPrefix + "/_next/*",
+    config.adminDashboardPrefix + "/auth/login",
+    config.adminDashboardPrefix + "/_next/*",
   ])
   public async login(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
     this.viewService.server.panel.getRequestHandler()(req.raw, res.raw);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get(splendid.adminDashboardPrefix + "/*")
+  @Get([
+    config.adminDashboardPrefix,
+    config.adminDashboardPrefix + "/*"
+  ])
   public async panel(@Req() req: FastifyRequest, @Res() res: FastifyReply) {
     this.viewService.server.panel.getRequestHandler()(req.raw, res.raw);
   }

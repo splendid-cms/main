@@ -1,12 +1,12 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import next from "next";
-import { splendid } from "package.json";
+import config from "@config";
 import type { NextServer } from "next/dist/server/next";
 
 @Injectable()
 export class ViewService implements OnModuleInit {
   public server: { global: NextServer; panel: NextServer };
-  public development: boolean = splendid.experimental.developmentEnvironment;
+  public development: boolean = config.experimental.developmentEnvironment;
 
   async onModuleInit(): Promise<void> {
     try {
